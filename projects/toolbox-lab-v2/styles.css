@@ -1,0 +1,75 @@
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+.tool {
+  max-width: 860px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.calc-block {
+  padding: 20px 0;
+  border-top: 1px solid #ddd;
+}
+
+.sentence {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+}
+
+input {
+  width: 110px;
+  padding: 8px 10px;
+  font: inherit;
+}
+
+button {
+  padding: 8px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.result {
+  padding: 4px 8px;
+  font-weight: 700;
+}
+
+.formula-row {
+  margin-top: 10px;
+}
+
+.detail {
+  margin-top: 8px;
+}
+
+.detail div {
+  margin-top: 8px;
+}
+
+.value-token {
+  font-weight: 700;
+}
+
+.percent-up {
+  color: #c5162e;
+}
+
+.percent-down {
+  color: #1257c8;
+}
+
+.percent-flat {
+  color: #666;
+}
