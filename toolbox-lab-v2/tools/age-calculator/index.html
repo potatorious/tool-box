@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>나이 계산기</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="tool">
+      <p><a href="../../">도구 목록으로</a></p>
+      <h1>나이 계산기</h1>
+
+      <section class="form-grid" aria-label="나이 계산 입력">
+        <label>
+          생년월일
+          <span class="date-number-group">
+            <input id="birth-year" type="number" inputmode="numeric" min="1" aria-label="출생 연도">
+            <span>년</span>
+            <input id="birth-month" type="number" inputmode="numeric" min="1" max="12" aria-label="출생 월">
+            <span>월</span>
+            <input id="birth-day" type="number" inputmode="numeric" min="1" max="31" aria-label="출생 일">
+            <span>일</span>
+          </span>
+        </label>
+
+        <label>
+          기준일
+          <span class="date-number-group">
+            <input id="base-year" type="number" inputmode="numeric" min="1" aria-label="기준 연도">
+            <span>년</span>
+            <input id="base-month" type="number" inputmode="numeric" min="1" max="12" aria-label="기준 월">
+            <span>월</span>
+            <input id="base-day" type="number" inputmode="numeric" min="1" max="31" aria-label="기준 일">
+            <span>일</span>
+          </span>
+        </label>
+      </section>
+
+      <section class="age-summary" aria-live="polite" aria-label="나이 계산 결과 요약">
+        <article class="age-primary">
+          <span>만 나이</span>
+          <strong id="international-age">-</strong>
+        </article>
+        <article>
+          <span>세는 나이 (한국 나이)</span>
+          <strong id="korean-age">-</strong>
+        </article>
+        <article>
+          <span>연 나이</span>
+          <strong id="year-age">-</strong>
+        </article>
+      </section>
+
+      <section class="age-detail" aria-label="자세한 나이 정보">
+        <p>
+          <strong id="days-lived">-</strong>
+          <span id="months-lived">-</span>
+        </p>
+        <p>
+          <strong id="exact-age">-</strong>
+          <span id="birthday-status">-</span>
+        </p>
+        <p id="birth-summary">-</p>
+        <p>
+          <strong id="adult-year">-</strong>
+          <span id="adult-status">-</span>
+        </p>
+        <p>
+          <strong id="next-birthday">-</strong>
+          <span id="next-birthday-days">-</span>
+        </p>
+      </section>
+
+      <section class="calc-block" aria-label="날짜 기념일">
+        <h2>날짜 기념일</h2>
+        <div class="age-milestones" id="milestones"></div>
+      </section>
+
+      <section class="calc-block" aria-label="세는 나이 기준 나이별 이칭">
+        <h2>나이별 이칭(異稱)</h2>
+        <p class="note-text">이칭(異稱)은 세는 나이 기준 입니다.</p>
+        <div class="age-milestones age-info-list" id="age-names"></div>
+      </section>
+
+      <section class="calc-block" aria-label="학령 연도 참고">
+        <h2>학령 연도</h2>
+        <p class="note-text">학령은 3월 입학 기준 입니다.</p>
+        <div class="age-milestones age-info-list" id="school-years"></div>
+      </section>
+    </main>
+  </body>
+</html>

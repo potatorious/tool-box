@@ -24,6 +24,7 @@ The goal is to choose the tool concept and identity first, then add visual theme
 - Travel budget splitter
 - Study time planner
 - Date interval and deadline calculator
+- Age calculator for Korean, international, and year-based age
 
 ## Selection Criteria
 
@@ -32,4 +33,3 @@ The goal is to choose the tool concept and identity first, then add visual theme
 - The topic can support original guide content, examples, and FAQs.
 - The page avoids high-risk claims in medical, legal, tax, or investment advice.
 - The site can reasonably expand into related tools later.
-
