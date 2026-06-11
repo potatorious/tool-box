@@ -140,7 +140,7 @@ function formatInchCell(row) {
     return "-";
   }
 
-  return `${row.footIn} (${row.footInDecimal})`;
+  return `${row.footInDecimal} (${row.footIn})`;
 }
 
 function scrollToSelectedRow() {
