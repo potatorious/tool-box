@@ -16,6 +16,21 @@ body {
   margin: 20px 0;
 }
 
+.tool-list {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.tool-link {
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  color: inherit;
+  text-decoration: none;
+}
+
 .calc-block {
   padding: 20px 0;
   border-top: 1px solid #ddd;
@@ -39,6 +54,182 @@ button {
   padding: 8px 12px;
   font: inherit;
   cursor: pointer;
+}
+
+select {
+  min-height: 42px;
+  padding: 8px 10px;
+  font: inherit;
+}
+
+input[type="range"] {
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.form-grid label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.size-table-wrap {
+  max-height: 520px;
+  overflow: auto;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  white-space: nowrap;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background: #fff;
+}
+
+tr.is-selected td {
+  background: #f3f7ff;
+  font-weight: 700;
+}
+
+.note-text {
+  color: #555;
+}
+
+.bmi-result {
+  margin: 20px 0;
+  font-size: 20px;
+}
+
+.bmi-scale {
+  margin: 20px 0;
+}
+
+.bmi-scale-bar {
+  position: relative;
+  height: 14px;
+  background: linear-gradient(
+    to right,
+    #dceafe 0%,
+    #dceafe 17.5%,
+    #dcfce7 17.5%,
+    #dcfce7 40%,
+    #fef9c3 40%,
+    #fef9c3 50%,
+    #ffedd5 50%,
+    #ffedd5 75%,
+    #fee2e2 75%,
+    #fee2e2 100%
+  );
+  border: 1px solid #ddd;
+}
+
+.bmi-scale-marker {
+  position: absolute;
+  top: -5px;
+  width: 4px;
+  height: 24px;
+  background: #111;
+  transform: translateX(-50%);
+}
+
+.bmi-scale-labels {
+  display: grid;
+  grid-template-columns: 17.5fr 22.5fr 10fr 25fr 25fr;
+  gap: 0;
+  margin-top: 8px;
+  color: #555;
+  font-size: 14px;
+  text-align: center;
+}
+
+.bmi-scale-labels span {
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+}
+
+.bmi-scale-labels small {
+  font-size: 12px;
+}
+
+.bmi-scale-labels span.is-active {
+  color: #111;
+  font-weight: 700;
+}
+
+.text-input {
+  width: 100%;
+  min-height: 220px;
+  padding: 12px;
+  font: inherit;
+  resize: vertical;
+}
+
+.counter-summary {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.counter-row {
+  display: grid;
+  grid-template-columns: minmax(90px, 1fr) minmax(90px, auto) minmax(110px, auto);
+  gap: 16px;
+  align-items: baseline;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+}
+
+.counter-row-sub {
+  grid-template-columns: minmax(90px, 1fr) minmax(90px, auto);
+  width: min(100%, 320px);
+}
+
+.counter-row strong {
+  font-size: 18px;
+}
+
+.counter-row > span,
+#copy-status {
+  color: #555;
+}
+
+.text-stats {
+  width: min(100%, 560px);
+}
+
+.text-stat-row {
+  grid-template-columns: minmax(80px, 1fr) minmax(80px, auto) minmax(100px, auto);
+  padding: 8px 0;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.text-stat-row-small {
+  grid-template-columns: minmax(80px, 1fr) minmax(80px, auto);
 }
 
 .result {

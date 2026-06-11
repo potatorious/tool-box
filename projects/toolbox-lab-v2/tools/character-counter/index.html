@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>글자수 계산기</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="tool">
+      <p><a href="../../">도구 목록으로</a></p>
+      <h1>글자수 계산기</h1>
+
+      <textarea id="text-input" class="text-input" placeholder="여기에 텍스트를 입력하세요."></textarea>
+
+      <section class="counter-summary text-stats" aria-label="글자수 계산 결과">
+        <article class="counter-row text-stat-row">
+          <span>공백 포함</span>
+          <strong><span id="count-with-spaces">0</span> 자</strong>
+          <strong><span id="bytes-with-spaces">0</span> byte</strong>
+        </article>
+        <article class="counter-row text-stat-row">
+          <span>공백 제외</span>
+          <strong><span id="count-without-spaces">0</span> 자</strong>
+          <strong><span id="bytes-without-spaces">0</span> byte</strong>
+        </article>
+        <article class="counter-row text-stat-row text-stat-row-small">
+          <span>단락 수</span>
+          <strong><span id="paragraph-count">0</span> 개</strong>
+        </article>
+        <article class="counter-row text-stat-row text-stat-row-small">
+          <span>줄 수</span>
+          <strong><span id="line-count">0</span> 줄</strong>
+        </article>
+      </section>
+
+      <div class="controls">
+        <button type="button" id="clear-text">전체 지우기</button>
+        <button type="button" id="copy-text">텍스트 복사</button>
+        <span id="copy-status" aria-live="polite"></span>
+      </div>
+    </main>
+  </body>
+</html>

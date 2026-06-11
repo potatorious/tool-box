@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>신발 사이즈 변환기</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="tool">
+      <p><a href="../../">도구 목록으로</a></p>
+      <h1>신발 사이즈 변환기</h1>
+
+      <section class="form-grid" aria-label="신발 사이즈 입력">
+        <label>
+          성별
+          <select id="chart-type">
+            <option value="men">남성 신발 기준</option>
+            <option value="women">여성 신발 기준</option>
+          </select>
+        </label>
+
+        <label>
+          기준
+          <select id="source-unit">
+            <option value="kr">KR (mm)</option>
+            <option value="usMen">US 남성</option>
+            <option value="usWomen">US 여성</option>
+            <option value="uk">UK</option>
+            <option value="eu">EU</option>
+            <option value="jp">JP (cm)</option>
+            <option value="footCm">발 길이 (cm)</option>
+            <option value="footIn">발 길이 (in)</option>
+          </select>
+        </label>
+
+        <label>
+          사이즈
+          <select id="source-size"></select>
+        </label>
+      </section>
+
+      <section class="size-results" aria-label="변환 결과">
+        <div class="table-wrap size-table-wrap" id="size-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>KR</th>
+                <th>US 남성</th>
+                <th>US 여성</th>
+                <th>UK</th>
+                <th>EU</th>
+                <th>JP</th>
+                <th>발 길이(cm)</th>
+                <th>발 길이(in)</th>
+              </tr>
+            </thead>
+            <tbody id="result-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="note-text">
+        신발 사이즈는 브랜드와 제품에 따라 기준이 다를 수 있습니다.
+      </p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BMI 계산기</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="tool">
+      <p><a href="../../">도구 목록으로</a></p>
+      <h1>BMI 계산기</h1>
+
+      <section class="form-grid" aria-label="BMI 입력">
+        <label>
+          키
+          <span>
+            <input id="height" type="number" inputmode="decimal" min="0" aria-label="키 cm">
+            cm
+          </span>
+        </label>
+
+        <label>
+          몸무게
+          <span>
+            <input id="weight" type="number" inputmode="decimal" min="0" aria-label="몸무게 kg">
+            kg
+          </span>
+        </label>
+      </section>
+
+      <section class="bmi-result" aria-label="BMI 계산 결과">
+        <p>
+          BMI
+          <strong class="result" id="bmi-value">-</strong>
+        </p>
+        <p>
+          분류
+          <strong class="result" id="bmi-category">-</strong>
+        </p>
+      </section>
+
+      <section class="bmi-scale" aria-label="BMI 분류 구간">
+        <div class="bmi-scale-bar">
+          <span class="bmi-scale-marker" id="bmi-marker"></span>
+        </div>
+        <div class="bmi-scale-labels">
+          <span data-category="저체중"><strong>저체중</strong><small>18.5 미만</small></span>
+          <span data-category="정상 체중"><strong>정상</strong><small>18.5-22.9</small></span>
+          <span data-category="과체중"><strong>과체중</strong><small>23-24.9</small></span>
+          <span data-category="비만"><strong>비만</strong><small>25-29.9</small></span>
+          <span data-category="고도비만"><strong>고도비만</strong><small>30 이상</small></span>
+        </div>
+      </section>
+
+      <p class="note-text">
+        BMI는 키와 몸무게만으로 계산한 참고 지표입니다.
+      </p>
+    </main>
+  </body>
+</html>
