@@ -25,7 +25,20 @@ const elements = {
 };
 
 const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-const zodiacAnimals = ["원숭이", "닭", "개", "돼지", "쥐", "소", "호랑이", "토끼", "용", "뱀", "말", "양"];
+const zodiacAnimals = [
+  "원숭이",
+  "닭",
+  "개",
+  "돼지",
+  "쥐",
+  "소",
+  "호랑이",
+  "토끼",
+  "용",
+  "뱀",
+  "말",
+  "양",
+];
 const heavenlyStems = [
   { ko: "경", hanja: "庚" },
   { ko: "신", hanja: "辛" },
@@ -53,23 +66,8 @@ const earthlyBranches = [
   { ko: "미", hanja: "未" },
 ];
 const milestoneDays = [
-  100,
-  200,
-  300,
-  500,
-  777,
-  1000,
-  1500,
-  2000,
-  3000,
-  5000,
-  7777,
-  10000,
-  15000,
-  20000,
-  25000,
-  30000,
-  36500,
+  100, 200, 300, 500, 777, 1000, 1500, 2000, 3000, 5000, 7777, 10000, 15000,
+  20000, 25000, 30000, 36500, 40000,
 ];
 const ageNameList = [
   { age: 15, name: "지학", hanja: "志學" },
@@ -103,9 +101,6 @@ const ageNameList = [
   { age: 120, name: "천수", hanja: "天壽" },
 ];
 const schoolStages = [
-  { offset: 4, label: "유치원" },
-  { offset: 5, label: "유치원" },
-  { offset: 6, label: "유치원" },
   { offset: 7, label: "초등학교 1학년" },
   { offset: 8, label: "초등학교 2학년" },
   { offset: 9, label: "초등학교 3학년" },
@@ -148,7 +143,7 @@ function parseDateParts(yearInput, monthInput, dayInput) {
   }
 
   const month = enteredMonth ?? 1;
-  const day = enteredMonth ? enteredDay ?? 1 : 1;
+  const day = enteredMonth ? (enteredDay ?? 1) : 1;
   const date = new Date(year, month - 1, day);
 
   if (
@@ -206,8 +201,16 @@ function getBirthdayForYear(birthDate, year) {
 }
 
 function getDayDiff(startDate, endDate) {
-  const start = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-  const end = Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+  const start = Date.UTC(
+    startDate.getFullYear(),
+    startDate.getMonth(),
+    startDate.getDate(),
+  );
+  const end = Date.UTC(
+    endDate.getFullYear(),
+    endDate.getMonth(),
+    endDate.getDate(),
+  );
 
   return Math.floor((end - start) / 86400000);
 }
@@ -301,7 +304,14 @@ function renderMilestones(birthDate, baseDate) {
     const internationalAge = getInternationalAge(birthDate, date);
     const koreanAge = date.getFullYear() - birthDate.getFullYear() + 1;
     const detail = `만 ${formatNumber(internationalAge)}세 · 세는 나이 ${formatNumber(koreanAge)}세`;
-    elements.milestones.append(createInfoRow(`${formatNumber(days)}일`, formatDate(date), detail, date < baseDate));
+    elements.milestones.append(
+      createInfoRow(
+        `${formatNumber(days)}일`,
+        formatDate(date),
+        detail,
+        date < baseDate,
+      ),
+    );
   });
 }
 
@@ -326,6 +336,27 @@ function createInfoRow(labelText, valueText, detailText = "", isPast = false) {
   return item;
 }
 
+function createAgeNameRow(nicknameText, yearText, countedAgeText, isPast = false) {
+  const item = document.createElement("div");
+  item.className = "counter-row age-name-row";
+
+  const nickname = document.createElement("strong");
+  nickname.textContent = nicknameText;
+
+  const year = document.createElement("span");
+  year.textContent = yearText;
+
+  const countedAge = document.createElement("span");
+  countedAge.textContent = countedAgeText;
+
+  if (isPast) {
+    item.classList.add("is-past");
+  }
+
+  item.append(nickname, year, countedAge);
+  return item;
+}
+
 function renderAgeNames(birthYear, baseYear) {
   elements.ageNames.textContent = "";
 
@@ -333,7 +364,14 @@ function renderAgeNames(birthYear, baseYear) {
     // These traditional labels are shown by Korean counted age.
     const year = birthYear + item.age - 1;
     const isPast = year < baseYear;
-    elements.ageNames.append(createInfoRow(`${item.age}세`, `${item.name}(${item.hanja})`, `${year}년`, isPast));
+    elements.ageNames.append(
+      createAgeNameRow(
+        `${item.name}(${item.hanja})`,
+        `${year}년`,
+        `세는 나이 ${item.age}세`,
+        isPast,
+      ),
+    );
   });
 }
 
@@ -347,13 +385,23 @@ function renderSchoolYears(birthDate) {
     const internationalAge = getInternationalAge(birthDate, schoolStartDate);
     const koreanAge = stage.offset + 1;
     const ageText = `만 ${internationalAge}세 · 세는 나이 ${koreanAge}세`;
-    elements.schoolYears.append(createInfoRow(`${year}년`, stage.label, ageText));
+    elements.schoolYears.append(
+      createInfoRow(`${year}년`, stage.label, ageText),
+    );
   });
 }
 
 function render() {
-  const birthDate = parseDateParts(elements.birthYear, elements.birthMonth, elements.birthDay);
-  const baseDate = parseDateParts(elements.baseYear, elements.baseMonth, elements.baseDay);
+  const birthDate = parseDateParts(
+    elements.birthYear,
+    elements.birthMonth,
+    elements.birthDay,
+  );
+  const baseDate = parseDateParts(
+    elements.baseYear,
+    elements.baseMonth,
+    elements.baseDay,
+  );
 
   if (!birthDate || !baseDate) {
     resetResult();
@@ -386,14 +434,16 @@ function render() {
   elements.daysLived.textContent = `${formatNumber(daysLived)}일`;
   elements.monthsLived.textContent = `/ ${formatNumber(monthsLived)}개월`;
   elements.nextBirthday.textContent = `다음 생일은 ${weekdays[nextBirthday.getDay()]}요일,`;
-  elements.nextBirthdayDays.textContent = daysToNextBirthday === 0
-    ? "오늘이 생일입니다."
-    : `${formatNumber(daysToNextBirthday)}일 남았습니다.`;
+  elements.nextBirthdayDays.textContent =
+    daysToNextBirthday === 0
+      ? "오늘이 생일입니다."
+      : `${formatNumber(daysToNextBirthday)}일 남았습니다.`;
   elements.birthSummary.textContent = `${birthDate.getFullYear()}년 ${getSexagenaryYear(birthDate.getFullYear())} ${getZodiac(birthDate.getFullYear())}띠 입니다.`;
-  elements.adultYear.textContent = `${adultDate.getFullYear()}년 성년 입니다.`;
-  elements.adultStatus.textContent = daysToAdult > 0
-    ? `${formatNumber(daysToAdult)}일 남았습니다.`
-    : `${formatNumber(Math.abs(daysToAdult))}일 지났습니다.`;
+  elements.adultYear.textContent = `${adultDate.getFullYear()}년 성년,`;
+  elements.adultStatus.textContent =
+    daysToAdult > 0
+      ? `${formatNumber(daysToAdult)}일 남았습니다.`
+      : `${formatNumber(Math.abs(daysToAdult))}일 지났습니다.`;
 
   renderMilestones(birthDate, baseDate);
   renderAgeNames(birthDate.getFullYear(), baseDate.getFullYear());

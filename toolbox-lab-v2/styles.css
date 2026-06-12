@@ -36,6 +36,14 @@ body {
   border-top: 1px solid #ddd;
 }
 
+.calc-block summary {
+  cursor: pointer;
+}
+
+.calc-block summary h2 {
+  display: inline;
+}
+
 .sentence {
   display: flex;
   flex-wrap: wrap;
