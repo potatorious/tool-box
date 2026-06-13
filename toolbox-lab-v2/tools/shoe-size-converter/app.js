@@ -1,59 +1,54 @@
 const $ = (id) => document.getElementById(id);
 
-const menFootCm = [21.6, 22, 22.4, 22.9, 23.3, 23.7, 24.1, 24.5, 25, 25.4, 25.8, 26.2, 26.7, 27.1, 27.5, 27.9, 28.3, 28.8, 29.2, 29.6, 30, 30.5, 30.9, 31.3, 31.7, 32.2, 32.6, 33, 33.4, 33.9, 34.3, 34.7, 35.1, 35.5, 36, 36.4, 36.8, 37.2];
-const menFootIn = ["8 1/2", "8 11/16", "8 13/16", "9", "9 3/16", "9 5/16", "9 1/2", "9 11/16", "9 13/16", "10", "10 3/16", "10 5/16", "10 1/2", "10 11/16", "10 13/16", "11", "11 3/16", "11 5/16", "11 1/2", "11 11/16", "11 13/16", "12", "12 3/16", "12 5/16", "12 1/2", "12 11/16", "12 13/16", "13", "13 3/16", "13 5/16", "13 1/2", "13 11/16", "13 13/16", "14", "14 3/16", "14 5/16", "14 1/2", "14 11/16"];
-const womenFootCm = [20.8, 21.2, 21.6, 22, 22.4, 22.9, 23.3, 23.7, 24.1, 24.5, 25, 25.4, 25.8, 26.2, 26.7, 27.1, 27.5, 27.9, 28.3, 28.8, 29.2, 29.6, 30, 30.5, 30.9, 31.3, 31.7, 32.2];
-
-const charts = {
-  men: createRows({
-    usMen: [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22],
-    usWomen: [5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5],
-    uk: [3, 3.5, 4, 4.5, 5, 5.5, 6, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21],
-    kr: [225, 230, 235, 235, 240, 240, 245, 250, 255, 260, 265, 270, 275, 280, 285, 290, 295, 300, 305, 310, 315, 320, 325, 330, 335, 340, 345, 350, 355, 360, 365, 370, 375, 380, 385, 390, 395, 400],
-    jp: [22.5, 23, 23.5, 23.5, 24, 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29, 29.5, 30, 30.5, 31, 31.5, 32, 32.5, 33, 33.5, 34, 34.5, 35, 35.5, 36, 36.5, 37, 37.5, 38, 38.5, 39, 39.5, 40],
-    eu: [35.5, 36, 36.5, 37.5, 38, 38.5, 39, 40, 40.5, 41, 42, 42.5, 43, 44, 44.5, 45, 45.5, 46, 47, 47.5, 48, 48.5, 49, 49.5, 50, 50.5, 51, 51.5, 52, 52.5, 53, 53.5, 54, 54.5, 55, 55.5, 56, 56.5],
-    footCm: menFootCm,
-    footIn: menFootIn,
-  }),
-  women: createRows({
-    usWomen: [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5],
-    usMen: [2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21],
-    uk: [1.5, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20],
-    kr: [210, 210, 215, 220, 225, 230, 235, 240, 245, 250, 255, 260, 265, 270, 275, 280, 285, 290, 295, 300, 305, 310, 315, 320, 325, 330, 335, 340, 345, 350, 355, 360, 365, 370, 375, 380, 385, 390, 395],
-    jp: [21, 21, 21.5, 22, 22.5, 23, 23.5, 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29, 29.5, 30, 30.5, 31, 31.5, 32, 32.5, 33, 33.5, 34, 34.5, 35, 35.5, 36, 36.5, 37, 37.5, 38, 38.5, 39, 39.5],
-    eu: [33.5, 34.5, 35, 35.5, 36, 36.5, 37.5, 38, 38.5, 39, 40, 40.5, 41, 42, 42.5, 43, 44, 44.5, 45, 45.5, 46, 47, 47.5, 48, 48.5, 49, 50, 50.5, 51, 51.5, 52, 52.5, 53, 53.5, 54, 54.5, 55, 55.5, 56],
-    footCm: womenFootCm,
-  }),
-};
+const krSizes = createKrSizes(210, 400, 5);
+const sizeRows = createRows(krSizes);
 
 const elements = {
-  chartType: $("chart-type"),
   sourceUnit: $("source-unit"),
   sourceSize: $("source-size"),
   tableWrap: $("size-table-wrap"),
   resultRows: $("result-rows"),
 };
 
-const tableFields = ["kr", "usMen", "usWomen", "uk", "eu", "jp", "footCm", "footIn"];
+const tableFields = ["kr", "usMen", "usWomen", "uk", "eu", "jp", "footIn"];
 
-function createRows(columns) {
-  const rowCount = Math.max(...Object.values(columns).map((values) => values.length));
+function createKrSizes(min, max, step) {
+  return Array.from(
+    { length: Math.floor((max - min) / step) + 1 },
+    (_, index) => min + index * step,
+  );
+}
 
-  return Array.from({ length: rowCount }, (_, index) => ({
-    kr: columns.kr[index] ?? "",
-    usMen: columns.usMen[index] ?? "",
-    usWomen: columns.usWomen[index] ?? "",
-    uk: columns.uk[index] ?? "",
-    eu: columns.eu[index] ?? "",
-    jp: columns.jp[index] ?? "",
-    footCm: columns.footCm[index] ?? "",
-    footIn: columns.footIn?.[index] ?? (columns.footCm[index] ? formatInches(columns.footCm[index]) : ""),
-    footInDecimal: columns.footCm[index] ? formatDecimalInches(columns.footCm[index]) : "",
-  }));
+function createRows(sizes) {
+  return sizes.map((kr) => {
+    const footCm = kr / 10;
+    const uk = roundToNearestHalf((kr / 25.4) * 3 - 23);
+    const usMen = uk + 1;
+    const usWomen = usMen + 1.5;
+
+    return {
+      kr,
+      usMen,
+      usWomen,
+      uk,
+      eu: roundToNearestHalf((kr * 3) / 20 + 2),
+      jp: footCm,
+      footCm,
+      footIn: formatInchDisplay(footCm),
+    };
+  });
+}
+
+function formatInchDisplay(cm) {
+  return `${formatDecimalInches(cm)} (${formatInches(cm)})`;
 }
 
 function formatDecimalInches(cm) {
   return String(Number((cm / 2.54).toFixed(2)));
+}
+
+function roundToNearestHalf(value) {
+  return Number((Math.round(value * 2) / 2).toFixed(1));
 }
 
 function formatInches(cm) {
@@ -94,7 +89,7 @@ function uniqueSizes(rows, unit) {
 }
 
 function getRows() {
-  return charts[elements.chartType.value];
+  return sizeRows;
 }
 
 function renderSizeOptions() {
@@ -140,7 +135,7 @@ function formatInchCell(row) {
     return "-";
   }
 
-  return `${row.footInDecimal} (${row.footIn})`;
+  return row.footIn;
 }
 
 function scrollToSelectedRow() {
@@ -159,7 +154,6 @@ function render() {
   renderResults();
 }
 
-elements.chartType.addEventListener("change", render);
 elements.sourceUnit.addEventListener("change", render);
 elements.sourceSize.addEventListener("change", renderResults);
 

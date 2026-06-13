@@ -14,14 +14,6 @@
 
       <section class="form-grid" aria-label="신발 사이즈 입력">
         <label>
-          성별
-          <select id="chart-type">
-            <option value="men">남성 신발 기준</option>
-            <option value="women">여성 신발 기준</option>
-          </select>
-        </label>
-
-        <label>
           기준
           <select id="source-unit">
             <option value="kr">KR (mm)</option>
@@ -30,7 +22,6 @@
             <option value="uk">UK</option>
             <option value="eu">EU</option>
             <option value="jp">JP</option>
-            <option value="footCm">발 길이 (cm)</option>
             <option value="footIn">발 길이 (in)</option>
           </select>
         </label>
@@ -44,6 +35,9 @@
       <section class="size-results" aria-label="변환 결과">
         <div class="table-wrap size-table-wrap" id="size-table-wrap">
           <table>
+            <caption class="visually-hidden">
+              KR, US 남성, US 여성, UK, EU, JP, 발 길이 인치 기준 신발 사이즈 비교표
+            </caption>
             <thead>
               <tr>
                 <th>KR (mm)</th>
@@ -52,7 +46,6 @@
                 <th>UK</th>
                 <th>EU</th>
                 <th>JP</th>
-                <th>발 길이 (cm)</th>
                 <th>발 길이 (in)</th>
               </tr>
             </thead>
@@ -62,7 +55,9 @@
       </section>
 
       <p class="note-text">
-        신발 사이즈는 브랜드와 제품에 따라 기준이 다를 수 있습니다.
+        Mondopoint 발 길이 기준 비교표입니다.<br>
+        EU, UK, US 값은 0.5 단위 반올림값입니다.<br>
+        브랜드와 제품의 실측, 라스트, 핏에 따라 권장 사이즈는 달라질 수 있습니다.
       </p>
     </main>
   </body>

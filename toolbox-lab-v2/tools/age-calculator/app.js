@@ -436,7 +436,7 @@ function render() {
   elements.nextBirthday.textContent = `다음 생일은 ${weekdays[nextBirthday.getDay()]}요일,`;
   elements.nextBirthdayDays.textContent =
     daysToNextBirthday === 0
-      ? "오늘이 생일입니다."
+      ? "오늘이 생일입니다. 생일 축하드립니다!"
       : `${formatNumber(daysToNextBirthday)}일 남았습니다.`;
   elements.birthSummary.textContent = `${birthDate.getFullYear()}년 ${getSexagenaryYear(birthDate.getFullYear())} ${getZodiac(birthDate.getFullYear())}띠 입니다.`;
   elements.adultYear.textContent = `${adultDate.getFullYear()}년 성년,`;

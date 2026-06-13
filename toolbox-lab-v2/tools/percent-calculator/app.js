@@ -109,6 +109,12 @@ function setWaiting(view, formula, detail) {
   view.detail.innerHTML = `<p>${detail}</p>`;
 }
 
+function setCannotDivideByZero(view, formula) {
+  view.result.textContent = "계산 불가";
+  view.formula.textContent = `${formula} = 계산 불가`;
+  view.detail.innerHTML = "<p>0 으로 나누는 계산은 할 수 없습니다.</p>";
+}
+
 function setChangeClass(element, kind) {
   element.classList.remove("percent-up", "percent-down", "percent-flat");
   element.classList.add(`percent-${kind}`);
@@ -157,7 +163,14 @@ function renderReverseTotal() {
 
   const part = inputValue(view.part);
   const percent = inputValue(view.percent);
-  const onePercent = percent === 0 ? 0 : part / percent;
+
+  if (percent === 0) {
+    view.partSubject.textContent = josa(part, "이/가");
+    setCannotDivideByZero(view, `${formatNumber(part)} ÷ ${formatNumber(percent)} × 100`);
+    return;
+  }
+
+  const onePercent = part / percent;
   const result = onePercent * 100;
 
   view.partSubject.textContent = josa(part, "이/가");
@@ -187,7 +200,14 @@ function renderRatio() {
 
   const total = inputValue(view.total);
   const part = inputValue(view.part);
-  const ratio = total === 0 ? 0 : part / total;
+
+  if (total === 0) {
+    view.partTopic.textContent = josa(part, "은/는");
+    setCannotDivideByZero(view, `${formatNumber(part)} ÷ ${formatNumber(total)} × 100`);
+    return;
+  }
+
+  const ratio = part / total;
   const result = ratio * 100;
 
   view.partTopic.textContent = josa(part, "은/는");
@@ -220,9 +240,18 @@ function renderChangeRate() {
   const before = inputValue(view.before);
   const after = inputValue(view.after);
   const difference = after - before;
+
+  if (before === 0 && difference !== 0) {
+    view.beforeSubject.textContent = josa(before, "이/가");
+    view.afterTo.textContent = josa(after, "으로/로");
+    setChangeClass(view.result, "flat");
+    setCannotDivideByZero(view, `(${formatNumber(after)} - ${formatNumber(before)}) ÷ ${formatNumber(before)} × 100`);
+    return;
+  }
+
   const absDifference = Math.abs(difference);
-  const changeRatio = before === 0 ? 0 : absDifference / before;
-  const signedRate = before === 0 ? 0 : difference / before * 100;
+  const changeRatio = absDifference / before;
+  const signedRate = difference / before * 100;
   const absRate = Math.abs(signedRate);
   const kind = difference > 0 ? "up" : difference < 0 ? "down" : "flat";
   const label = difference > 0
