@@ -1,0 +1,152 @@
+.size-table-wrap {
+  max-height: 520px;
+  overflow: auto;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bmi-result {
+  margin: var(--space-8) 0;
+  font-size: var(--font-size-xl);
+}
+
+.bmi-scale {
+  margin: var(--space-8) 0;
+}
+
+.bmi-scale-bar {
+  position: relative;
+  height: 14px;
+  background: linear-gradient(
+    to right,
+    #dceafe 0%,
+    #dceafe 17.5%,
+    #dcfce7 17.5%,
+    #dcfce7 40%,
+    #fef9c3 40%,
+    #fef9c3 50%,
+    #ffedd5 50%,
+    #ffedd5 75%,
+    #fee2e2 75%,
+    #fee2e2 100%
+  );
+  border: 1px solid var(--color-border);
+}
+
+.bmi-scale-marker {
+  position: absolute;
+  top: -5px;
+  width: 4px;
+  height: 24px;
+  background: var(--color-text);
+  transform: translateX(-50%);
+}
+
+.bmi-scale-labels {
+  display: grid;
+  grid-template-columns: 17.5fr 22.5fr 10fr 25fr 25fr;
+  gap: 0;
+  margin-top: var(--space-3);
+  color: var(--color-muted);
+  font-size: var(--font-size-md);
+  text-align: center;
+}
+
+.bmi-scale-labels span {
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+}
+
+.bmi-scale-labels small {
+  font-size: var(--font-size-sm);
+}
+
+.bmi-scale-labels span.is-active {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.text-input {
+  width: 100%;
+  min-height: 220px;
+  padding: var(--space-5);
+  font: inherit;
+  resize: vertical;
+}
+
+.text-stats {
+  width: min(100%, 560px);
+}
+
+.text-stat-row {
+  grid-template-columns: minmax(80px, 1fr) minmax(80px, auto) minmax(100px, auto);
+  padding: var(--space-3) 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.text-stat-row-small {
+  grid-template-columns: minmax(80px, 1fr) minmax(80px, auto);
+}
+
+.age-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-5);
+  margin: var(--space-8) 0;
+}
+
+.age-summary article {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-7);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.age-summary span {
+  color: var(--color-muted);
+}
+
+.age-summary strong {
+  font-size: var(--font-size-2xl);
+}
+
+.age-detail {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-8) 0;
+}
+
+.age-detail p {
+  margin: 0;
+  padding: var(--space-5) var(--space-6);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-muted);
+}
+
+.age-detail strong {
+  color: var(--color-text);
+}
+
+.age-milestones {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.age-milestones .counter-row {
+  grid-template-columns: minmax(80px, 0.7fr) minmax(120px, auto) minmax(150px, 1.3fr);
+}
+
+@media (max-width: 560px) {
+  .age-milestones .counter-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .age-milestones .counter-row strong {
+    font-size: 17px;
+  }
+}

@@ -13,10 +13,12 @@ const elements = {
   exactAge: $("exact-age"),
   birthdayStatus: $("birthday-status"),
   daysLived: $("days-lived"),
-  monthsLived: $("months-lived"),
+  nextBirthdayLabel: $("next-birthday-label"),
   nextBirthday: $("next-birthday"),
   nextBirthdayDays: $("next-birthday-days"),
-  birthSummary: $("birth-summary"),
+  birthSummaryMain: $("birth-summary-main"),
+  birthSummaryDetail: $("birth-summary-detail"),
+  birthSymbols: $("birth-symbols"),
   adultYear: $("adult-year"),
   adultStatus: $("adult-status"),
   milestones: $("milestones"),
@@ -72,27 +74,19 @@ const milestoneDays = [
 const ageNameList = [
   { age: 15, name: "지학", hanja: "志學" },
   { age: 20, name: "약관", hanja: "弱冠" },
-  { age: 20, name: "방년", hanja: "芳年" },
-  { age: 30, name: "입지", hanja: "立志" },
   { age: 30, name: "이립", hanja: "而立" },
   { age: 40, name: "불혹", hanja: "不惑" },
   { age: 50, name: "지천명", hanja: "知天命" },
-  { age: 60, name: "이순", hanja: "耳順" },
   { age: 60, name: "육순", hanja: "六旬" },
   { age: 61, name: "환갑", hanja: "還甲" },
-  { age: 61, name: "회갑", hanja: "回甲" },
   { age: 62, name: "진갑", hanja: "進甲" },
-  { age: 70, name: "고희", hanja: "古稀" },
   { age: 70, name: "칠순", hanja: "七旬" },
-  { age: 70, name: "종심", hanja: "從心" },
   { age: 71, name: "망팔", hanja: "望八" },
   { age: 77, name: "희수", hanja: "喜壽" },
   { age: 80, name: "팔순", hanja: "八旬" },
-  { age: 80, name: "산수", hanja: "傘壽" },
   { age: 81, name: "망구", hanja: "望九" },
   { age: 88, name: "미수", hanja: "米壽" },
   { age: 90, name: "구순", hanja: "九旬" },
-  { age: 90, name: "졸수", hanja: "卒壽" },
   { age: 91, name: "망백", hanja: "望百" },
   { age: 99, name: "백수", hanja: "白壽" },
   { age: 100, name: "상수", hanja: "上壽" },
@@ -115,6 +109,42 @@ const schoolStages = [
   { offset: 18, label: "고등학교 3학년" },
   { offset: 19, label: "고등학교 졸업" },
 ];
+const detailPlaceholders = {
+  daysLived: "생후 일수와 개월 수가 표시됩니다.",
+  exactAge: "만 나이 기준의 년, 월, 일 기간이 표시됩니다.",
+  birthSummary: "출생 연도의 육십갑자와 띠가 표시됩니다.",
+  birthSymbols: "별자리와 월별 탄생석이 표시됩니다.",
+  adultStatus: "성년이 되는 해와 남은 기간이 표시됩니다.",
+  nextBirthday: "다음 생일의 요일과 남은 기간이 표시됩니다.",
+};
+const westernZodiacSigns = [
+  { name: "염소자리", from: [12, 22], to: [1, 19] },
+  { name: "물병자리", from: [1, 20], to: [2, 18] },
+  { name: "물고기자리", from: [2, 19], to: [3, 20] },
+  { name: "양자리", from: [3, 21], to: [4, 19] },
+  { name: "황소자리", from: [4, 20], to: [5, 20] },
+  { name: "쌍둥이자리", from: [5, 21], to: [6, 21] },
+  { name: "게자리", from: [6, 22], to: [7, 22] },
+  { name: "사자자리", from: [7, 23], to: [8, 22] },
+  { name: "처녀자리", from: [8, 23], to: [9, 22] },
+  { name: "천칭자리", from: [9, 23], to: [10, 22] },
+  { name: "전갈자리", from: [10, 23], to: [11, 22] },
+  { name: "사수자리", from: [11, 23], to: [12, 21] },
+];
+const birthstones = [
+  "가넷",
+  "자수정",
+  "아쿠아마린",
+  "다이아몬드",
+  "에메랄드",
+  "진주 · 문스톤 · 알렉산드라이트",
+  "루비",
+  "페리도트 · 스피넬 · 사도닉스",
+  "사파이어",
+  "오팔 · 투어멀린",
+  "토파즈 · 시트린",
+  "터키석 · 지르콘 · 탄자나이트",
+];
 
 function fillDateInputs(prefix, date) {
   elements[`${prefix}Year`].value = date.getFullYear();
@@ -131,6 +161,10 @@ function parseNumber(input) {
 
   const value = Number(rawValue);
   return Number.isInteger(value) ? value : null;
+}
+
+function limitDigits(input, maxLength) {
+  input.value = input.value.replace(/\D/g, "").slice(0, maxLength);
 }
 
 function parseDateParts(yearInput, monthInput, dayInput) {
@@ -169,6 +203,10 @@ function formatDate(date) {
 
 function formatNumber(value) {
   return value.toLocaleString("ko-KR");
+}
+
+function formatDuration(duration) {
+  return `${formatNumber(duration.years)}년 ${duration.months}개월 ${duration.days}일`;
 }
 
 function addDays(date, days) {
@@ -278,19 +316,48 @@ function getSexagenaryYear(year) {
   return `${stem.ko}${branch.ko}(${stem.hanja}${branch.hanja})년`;
 }
 
-function resetResult(message = "-") {
-  elements.internationalAge.textContent = message;
-  elements.yearAge.textContent = message;
-  elements.koreanAge.textContent = message;
-  elements.exactAge.textContent = message;
-  elements.birthdayStatus.textContent = message;
-  elements.daysLived.textContent = message;
-  elements.monthsLived.textContent = message;
-  elements.nextBirthday.textContent = message;
-  elements.nextBirthdayDays.textContent = message;
-  elements.birthSummary.textContent = message;
-  elements.adultYear.textContent = message;
-  elements.adultStatus.textContent = message;
+function isDateInRange(month, day, from, to) {
+  const value = month * 100 + day;
+  const start = from[0] * 100 + from[1];
+  const end = to[0] * 100 + to[1];
+
+  if (start <= end) {
+    return value >= start && value <= end;
+  }
+
+  return value >= start || value <= end;
+}
+
+function getWesternZodiacSign(date) {
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  return westernZodiacSigns.find((sign) =>
+    isDateInRange(month, day, sign.from, sign.to),
+  ).name;
+}
+
+function getBirthstone(date) {
+  return birthstones[date.getMonth()];
+}
+
+function resetResult(message = "") {
+  const hasMessage = Boolean(message);
+
+  elements.internationalAge.textContent = hasMessage ? message : "-";
+  elements.yearAge.textContent = hasMessage ? message : "-";
+  elements.koreanAge.textContent = hasMessage ? message : "-";
+  elements.birthdayStatus.textContent = "";
+  elements.daysLived.textContent = hasMessage ? message : detailPlaceholders.daysLived;
+  elements.exactAge.textContent = hasMessage ? message : detailPlaceholders.exactAge;
+  elements.nextBirthdayLabel.textContent = "";
+  elements.nextBirthday.textContent = hasMessage ? message : detailPlaceholders.nextBirthday;
+  elements.nextBirthdayDays.textContent = "";
+  elements.birthSummaryMain.textContent = hasMessage ? message : detailPlaceholders.birthSummary;
+  elements.birthSummaryDetail.textContent = "";
+  elements.birthSymbols.textContent = hasMessage ? message : detailPlaceholders.birthSymbols;
+  elements.adultYear.textContent = hasMessage ? message : detailPlaceholders.adultStatus;
+  elements.adultStatus.textContent = "";
   elements.milestones.textContent = "";
   elements.ageNames.textContent = "";
   elements.schoolYears.textContent = "";
@@ -340,10 +407,10 @@ function createAgeNameRow(nicknameText, yearText, countedAgeText, isPast = false
   const item = document.createElement("div");
   item.className = "counter-row age-name-row";
 
-  const nickname = document.createElement("strong");
+  const nickname = document.createElement("span");
   nickname.textContent = nicknameText;
 
-  const year = document.createElement("span");
+  const year = document.createElement("strong");
   year.textContent = yearText;
 
   const countedAge = document.createElement("span");
@@ -375,7 +442,7 @@ function renderAgeNames(birthYear, baseYear) {
   });
 }
 
-function renderSchoolYears(birthDate) {
+function renderSchoolYears(birthDate, baseDate) {
   elements.schoolYears.textContent = "";
   const birthYear = birthDate.getFullYear();
 
@@ -385,8 +452,9 @@ function renderSchoolYears(birthDate) {
     const internationalAge = getInternationalAge(birthDate, schoolStartDate);
     const koreanAge = stage.offset + 1;
     const ageText = `만 ${internationalAge}세 · 세는 나이 ${koreanAge}세`;
+    const isPast = schoolStartDate < baseDate;
     elements.schoolYears.append(
-      createInfoRow(`${year}년`, stage.label, ageText),
+      createInfoRow(stage.label, `${year}년`, ageText, isPast),
     );
   });
 }
@@ -423,44 +491,123 @@ function render() {
   const daysToNextBirthday = getDayDiff(baseDate, nextBirthday);
   const adultDate = addYears(birthDate, 19);
   const daysToAdult = getDayDiff(baseDate, adultDate);
+  const adultDuration = daysToAdult > 0
+    ? getExactAge(baseDate, adultDate)
+    : getExactAge(adultDate, baseDate);
 
   elements.internationalAge.textContent = `${formatNumber(internationalAge)}세`;
   elements.yearAge.textContent = `${formatNumber(yearAge)}세`;
   elements.koreanAge.textContent = `${formatNumber(koreanAge)}세`;
-  elements.exactAge.textContent = `${formatNumber(exactAge.years)}년 ${exactAge.months}개월 ${exactAge.days}일`;
-  elements.birthdayStatus.textContent = hasBirthdayPassed(birthDate, baseDate)
-    ? "올해 생일이 지났습니다."
-    : "올해 생일 전입니다.";
-  elements.daysLived.textContent = `${formatNumber(daysLived)}일`;
-  elements.monthsLived.textContent = `/ ${formatNumber(monthsLived)}개월`;
-  elements.nextBirthday.textContent = `다음 생일은 ${weekdays[nextBirthday.getDay()]}요일,`;
-  elements.nextBirthdayDays.textContent =
-    daysToNextBirthday === 0
-      ? "오늘이 생일입니다. 생일 축하드립니다!"
-      : `${formatNumber(daysToNextBirthday)}일 남았습니다.`;
-  elements.birthSummary.textContent = `${birthDate.getFullYear()}년 ${getSexagenaryYear(birthDate.getFullYear())} ${getZodiac(birthDate.getFullYear())}띠 입니다.`;
-  elements.adultYear.textContent = `${adultDate.getFullYear()}년 성년,`;
-  elements.adultStatus.textContent =
-    daysToAdult > 0
-      ? `${formatNumber(daysToAdult)}일 남았습니다.`
-      : `${formatNumber(Math.abs(daysToAdult))}일 지났습니다.`;
+  renderDaysLived(daysLived, monthsLived);
+  renderExactAge(exactAge, hasBirthdayPassed(birthDate, baseDate));
+  elements.nextBirthdayLabel.textContent = "다음 생일은 ";
+  renderNextBirthday(nextBirthday, daysToNextBirthday);
+  renderBirthSummary(birthDate);
+  renderBirthSymbols(birthDate);
+  elements.adultYear.textContent = `${adultDate.getFullYear()}년 성년, `;
+  renderAdultStatus(daysToAdult, adultDuration);
 
   renderMilestones(birthDate, baseDate);
   renderAgeNames(birthDate.getFullYear(), baseDate.getFullYear());
-  renderSchoolYears(birthDate);
+  renderSchoolYears(birthDate, baseDate);
+}
+
+function renderDaysLived(daysLived, monthsLived) {
+  elements.daysLived.textContent = "";
+
+  const value = document.createElement("strong");
+  value.textContent = `${formatNumber(daysLived)}일 (${formatNumber(monthsLived)}개월)`;
+
+  elements.daysLived.append("생후 ", value);
+}
+
+function renderExactAge(exactAge, birthdayPassed) {
+  elements.exactAge.textContent = "";
+  const value = document.createElement("strong");
+  value.textContent = `${formatNumber(exactAge.years)}년 ${exactAge.months}개월 ${exactAge.days}일, `;
+  elements.exactAge.append(value);
+  elements.birthdayStatus.textContent = birthdayPassed
+    ? "올해 생일이 지났습니다."
+    : "올해 생일 전입니다.";
+}
+
+function renderBirthSummary(birthDate) {
+  elements.birthSummaryMain.textContent = `${birthDate.getFullYear()}년 `;
+
+  const value = document.createElement("strong");
+  value.textContent = `${getSexagenaryYear(birthDate.getFullYear())} ${getZodiac(birthDate.getFullYear())}띠`;
+
+  elements.birthSummaryMain.append(value);
+  elements.birthSummaryDetail.textContent = " 입니다.";
+}
+
+function renderBirthSymbols(birthDate) {
+  elements.birthSymbols.textContent = "";
+
+  const zodiac = document.createElement("strong");
+  zodiac.textContent = `${getWesternZodiacSign(birthDate)},`;
+
+  const birthstone = document.createElement("strong");
+  birthstone.textContent = getBirthstone(birthDate);
+
+  elements.birthSymbols.append(
+    "별자리는 ",
+    zodiac,
+    " 탄생석은 ",
+    birthstone,
+    " 입니다.",
+  );
+}
+
+function renderAdultStatus(daysToAdult, adultDuration) {
+  const status = daysToAdult > 0 ? "남았습니다." : "지났습니다.";
+  const value = document.createElement("strong");
+  value.textContent = formatDuration(adultDuration);
+
+  elements.adultStatus.textContent = "";
+  elements.adultStatus.append(value, ` ${status}`);
+}
+
+function renderNextBirthday(nextBirthday, daysToNextBirthday) {
+  elements.nextBirthday.textContent = "";
+  elements.nextBirthdayDays.textContent = "";
+
+  const weekday = document.createElement("strong");
+  weekday.textContent = `${weekdays[nextBirthday.getDay()]}요일, `;
+  elements.nextBirthday.append(weekday);
+
+  if (daysToNextBirthday === 0) {
+    elements.nextBirthdayDays.textContent = "오늘이 생일입니다. 생일 축하드립니다!";
+    return;
+  }
+
+  const days = document.createElement("strong");
+  days.textContent = `${formatNumber(daysToNextBirthday)}일`;
+  elements.nextBirthdayDays.append(days, " 남았습니다.");
 }
 
 fillDateInputs("base", new Date());
 
 [
   elements.birthYear,
+  elements.baseYear,
+].forEach((input) => {
+  input.addEventListener("input", () => {
+    limitDigits(input, 4);
+    render();
+  });
+});
+
+[
   elements.birthMonth,
   elements.birthDay,
-  elements.baseYear,
   elements.baseMonth,
   elements.baseDay,
 ].forEach((input) => {
-  input.addEventListener("input", render);
+  input.addEventListener("input", () => {
+    limitDigits(input, 2);
+    render();
+  });
 });
 
 render();

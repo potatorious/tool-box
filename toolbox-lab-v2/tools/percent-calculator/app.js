@@ -70,8 +70,18 @@ function hasInput(input) {
 }
 
 function formatNumber(value) {
+  const absValue = Math.abs(value);
+
+  if (absValue > 0 && absValue < 0.01) {
+    return value < 0 ? "> -0.01" : "< 0.01";
+  }
+
   const rounded = Math.round((value + Number.EPSILON) * 100) / 100;
   return rounded.toLocaleString("ko-KR", { maximumFractionDigits: 2 });
+}
+
+function formatPercent(value) {
+  return formatNumber(value);
 }
 
 function lastDigit(value) {
@@ -99,19 +109,35 @@ function token(value) {
   return `<span class="value-token">${formatNumber(value)}</span>`;
 }
 
+function percentToken(value) {
+  return `<span class="value-token">${formatPercent(value)}</span>`;
+}
+
+function formulaInput(value) {
+  return `<strong>${formatNumber(value)}</strong>`;
+}
+
+function formulaPercent(value) {
+  return `<strong>${formatPercent(value)}</strong>`;
+}
+
 function tokenJosa(value, pair) {
   return `${token(value)}${josa(value, pair)}`;
 }
 
-function setWaiting(view, formula, detail) {
-  view.result.textContent = "-";
+function changeToken(kind, text) {
+  return `<span class="percent-${kind}">${text}</span>`;
+}
+
+function setWaiting(view, formula, resultLabel, detail) {
+  view.result.textContent = resultLabel;
   view.formula.textContent = formula;
   view.detail.innerHTML = `<p>${detail}</p>`;
 }
 
 function setCannotDivideByZero(view, formula) {
   view.result.textContent = "계산 불가";
-  view.formula.textContent = `${formula} = 계산 불가`;
+  view.formula.innerHTML = `${formula} = <strong>계산 불가</strong>`;
   view.detail.innerHTML = "<p>0 으로 나누는 계산은 할 수 없습니다.</p>";
 }
 
@@ -126,7 +152,8 @@ function renderPartOfTotal() {
   if (!hasInput(view.total) || !hasInput(view.percent)) {
     setWaiting(
       view,
-      "전체 값 ÷ 100 × 비율 = 결과",
+      "전체 값 ÷ 100 × 비율 = 일부 값",
+      "일부 값",
       "전체 값과 비율로 일부 값을 구합니다."
     );
     return;
@@ -138,7 +165,7 @@ function renderPartOfTotal() {
   const result = onePercent * percent;
 
   view.result.textContent = formatNumber(result);
-  view.formula.textContent = `${formatNumber(total)} ÷ 100 × ${formatNumber(percent)} = ${formatNumber(result)}`;
+  view.formula.innerHTML = `${formulaInput(total)} ÷ 100 × ${formulaInput(percent)} = ${formulaInput(result)}`;
   view.detail.innerHTML = `
     <p>입력한 전체 값은 ${token(total)}입니다.<br>입력한 비율은 ${token(percent)}%입니다.</p>
     <p>1. 전체 값 ${token(total)}을 100으로 나눕니다.<br>${token(total)} ÷ 100 = ${token(onePercent)}</p>
@@ -155,6 +182,7 @@ function renderReverseTotal() {
     setWaiting(
       view,
       "일부 값 ÷ 비율 × 100 = 전체 값",
+      "전체 값",
       "일부 값과 비율로 전체 값을 구합니다."
     );
     view.partSubject.textContent = "이";
@@ -166,7 +194,7 @@ function renderReverseTotal() {
 
   if (percent === 0) {
     view.partSubject.textContent = josa(part, "이/가");
-    setCannotDivideByZero(view, `${formatNumber(part)} ÷ ${formatNumber(percent)} × 100`);
+    setCannotDivideByZero(view, `${formulaInput(part)} ÷ ${formulaInput(percent)} × 100`);
     return;
   }
 
@@ -175,7 +203,7 @@ function renderReverseTotal() {
 
   view.partSubject.textContent = josa(part, "이/가");
   view.result.textContent = formatNumber(result);
-  view.formula.textContent = `${formatNumber(part)} ÷ ${formatNumber(percent)} × 100 = ${formatNumber(result)}`;
+  view.formula.innerHTML = `${formulaInput(part)} ÷ ${formulaInput(percent)} × 100 = ${formulaInput(result)}`;
   view.detail.innerHTML = `
     <p>입력한 일부 값은 ${token(part)}입니다.<br>입력한 비율은 ${token(percent)}%입니다.</p>
     <p>1. 일부 값 ${tokenJosa(part, "을/를")} 비율 ${tokenJosa(percent, "으로/로")} 나눕니다.<br>${token(part)} ÷ ${token(percent)} = ${token(onePercent)}</p>
@@ -192,6 +220,7 @@ function renderRatio() {
     setWaiting(
       view,
       "일부 값 ÷ 전체 값 × 100 = 비율",
+      "비율",
       "전체 값과 일부 값으로 비율을 구합니다."
     );
     view.partTopic.textContent = "은";
@@ -203,7 +232,7 @@ function renderRatio() {
 
   if (total === 0) {
     view.partTopic.textContent = josa(part, "은/는");
-    setCannotDivideByZero(view, `${formatNumber(part)} ÷ ${formatNumber(total)} × 100`);
+    setCannotDivideByZero(view, `${formulaInput(part)} ÷ ${formulaInput(total)} × 100`);
     return;
   }
 
@@ -211,14 +240,14 @@ function renderRatio() {
   const result = ratio * 100;
 
   view.partTopic.textContent = josa(part, "은/는");
-  view.result.textContent = `${formatNumber(result)}%`;
-  view.formula.textContent = `${formatNumber(part)} ÷ ${formatNumber(total)} × 100 = ${formatNumber(result)}`;
+  view.result.textContent = `${formatPercent(result)}%`;
+  view.formula.innerHTML = `${formulaInput(part)} ÷ ${formulaInput(total)} × 100 = ${formulaPercent(result)}%`;
   view.detail.innerHTML = `
     <p>입력한 전체 값은 ${token(total)}입니다.<br>입력한 일부 값은 ${token(part)}입니다.</p>
     <p>1. 일부 값 ${tokenJosa(part, "을/를")} 전체 값 ${tokenJosa(total, "으로/로")} 나눕니다.<br>${token(part)} ÷ ${token(total)} = ${token(ratio)}</p>
     <p>2. 이것은 일부 값이 전체 값의 ${token(ratio)}배라는 뜻입니다.</p>
-    <p>3. 퍼센트로 바꾸기 위해 ${token(ratio)}에 100을 곱합니다.<br>${token(ratio)} × 100 = ${token(result)}</p>
-    <p>따라서 ${token(total)} 중 ${tokenJosa(part, "은/는")} ${token(result)}%</p>
+    <p>3. 퍼센트로 바꾸기 위해 ${token(ratio)}에 100을 곱합니다.<br>${token(ratio)} × 100 = ${percentToken(result)}%</p>
+    <p>따라서 ${token(total)} 중 ${tokenJosa(part, "은/는")} ${percentToken(result)}%</p>
   `;
 }
 
@@ -229,11 +258,11 @@ function renderChangeRate() {
     setWaiting(
       view,
       "(변경 값 - 기준 값) ÷ 기준 값 × 100 = 증감률",
+      "증감률",
       "기준 값과 변경 값으로 증감률을 구합니다."
     );
     view.beforeSubject.textContent = "이";
     view.afterTo.textContent = "으로";
-    setChangeClass(view.result, "flat");
     return;
   }
 
@@ -245,7 +274,7 @@ function renderChangeRate() {
     view.beforeSubject.textContent = josa(before, "이/가");
     view.afterTo.textContent = josa(after, "으로/로");
     setChangeClass(view.result, "flat");
-    setCannotDivideByZero(view, `(${formatNumber(after)} - ${formatNumber(before)}) ÷ ${formatNumber(before)} × 100`);
+    setCannotDivideByZero(view, `(${formulaInput(after)} - ${formulaInput(before)}) ÷ ${formulaInput(before)} × 100`);
     return;
   }
 
@@ -255,16 +284,16 @@ function renderChangeRate() {
   const absRate = Math.abs(signedRate);
   const kind = difference > 0 ? "up" : difference < 0 ? "down" : "flat";
   const label = difference > 0
-    ? `▲ ${formatNumber(absRate)}% 증가`
+    ? `▲ ${formatPercent(absRate)}% 증가`
     : difference < 0
-      ? `▼ ${formatNumber(absRate)}% 감소`
+      ? `▼ ${formatPercent(absRate)}% 감소`
       : "0% 변화 없음";
 
   view.beforeSubject.textContent = josa(before, "이/가");
   view.afterTo.textContent = josa(after, "으로/로");
   view.result.textContent = label;
   setChangeClass(view.result, kind);
-  view.formula.textContent = `(${formatNumber(after)} - ${formatNumber(before)}) ÷ ${formatNumber(before)} × 100 = ${formatNumber(signedRate)}`;
+  view.formula.innerHTML = `(${formulaInput(after)} - ${formulaInput(before)}) ÷ ${formulaInput(before)} × 100 = ${formulaPercent(signedRate)}%`;
 
   if (kind === "flat") {
     view.detail.innerHTML = `
@@ -278,14 +307,16 @@ function renderChangeRate() {
 
   const verb = kind === "up" ? "늘어난" : "줄어든";
   const finalText = kind === "up" ? "증가" : "감소";
+  const finalTextToken = changeToken(kind, finalText);
+  const finalLabel = changeToken(kind, `${kind === "up" ? "▲" : "▼"} ${formatPercent(absRate)}% ${finalText}`);
 
   view.detail.innerHTML = `
     <p>입력한 기준 값은 ${token(before)}입니다.<br>입력한 변경 값은 ${token(after)}입니다.</p>
     <p>1. 변경 값 ${token(after)}에서 기준 값 ${tokenJosa(before, "을/를")} 뺍니다.<br>${token(after)} - ${token(before)} = ${token(difference)}</p>
-    <p>2. 이것은 기준 값보다 ${token(absDifference)}만큼 ${finalText}했다는 뜻입니다.</p>
+    <p>2. 이것은 기준 값보다 ${token(absDifference)}만큼 ${finalTextToken}했다는 뜻입니다.</p>
     <p>3. ${verb} 값 ${tokenJosa(absDifference, "을/를")} 기준 값 ${tokenJosa(before, "으로/로")} 나눕니다.<br>${token(absDifference)} ÷ ${token(before)} = ${token(changeRatio)}</p>
-    <p>4. 퍼센트로 바꾸기 위해 ${token(changeRatio)}에 100을 곱합니다.<br>${token(changeRatio)} × 100 = ${token(absRate)}</p>
-    <p>따라서 ${tokenJosa(before, "이/가")} ${tokenJosa(after, "으로/로")} 바뀌면 ${kind === "up" ? "▲" : "▼"} ${token(absRate)}% ${finalText}</p>
+    <p>4. 퍼센트로 바꾸기 위해 ${token(changeRatio)}에 100을 곱합니다.<br>${token(changeRatio)} × 100 = ${percentToken(absRate)}%</p>
+    <p>따라서 ${tokenJosa(before, "이/가")} ${tokenJosa(after, "으로/로")} 바뀌면 ${finalLabel}</p>
   `;
 }
 
@@ -295,7 +326,8 @@ function renderApplyPercent() {
   if (!hasInput(view.base) || !hasInput(view.percent)) {
     setWaiting(
       view,
-      "기준 값 + (기준 값 ÷ 100 × 비율) = 결과",
+      "기준 값 + (기준 값 ÷ 100 × 비율) = 증감 후 값",
+      "증감 후 값",
       "기준 값과 비율로 증감 후 값을 구합니다."
     );
     view.mode.textContent = state.applyMode === "up" ? "▲ 증가" : "▼ 감소";
@@ -310,19 +342,20 @@ function renderApplyPercent() {
   const result = isUp ? base + amount : base - amount;
   const symbol = isUp ? "+" : "-";
   const label = isUp ? "▲ 증가" : "▼ 감소";
+  const labelToken = changeToken(isUp ? "up" : "down", label);
   const word = isUp ? "증가" : "감소";
 
   view.mode.textContent = label;
   setChangeClass(view.mode, isUp ? "up" : "down");
   view.result.textContent = formatNumber(result);
-  view.formula.textContent = `${formatNumber(base)} ${symbol} (${formatNumber(base)} ÷ 100 × ${formatNumber(percent)}) = ${formatNumber(result)}`;
+  view.formula.innerHTML = `${formulaInput(base)} ${symbol} (${formulaInput(base)} ÷ 100 × ${formulaInput(percent)}) = ${formulaInput(result)}`;
   view.detail.innerHTML = `
-    <p>입력한 기준 값은 ${token(base)}입니다.<br>입력한 비율은 ${token(percent)}%입니다.<br>선택한 방식은 ${label}입니다.</p>
+    <p>입력한 기준 값은 ${token(base)}입니다.<br>입력한 비율은 ${token(percent)}%입니다.<br>선택한 방식은 ${labelToken}입니다.</p>
     <p>1. 기준 값 ${tokenJosa(base, "을/를")} 100으로 나눕니다.<br>${token(base)} ÷ 100 = ${token(base / 100)}</p>
     <p>2. 이것은 1%가 ${token(base / 100)}이라는 뜻입니다.</p>
     <p>3. 비율 ${token(percent)}%를 구하기 위해 ${token(base / 100)}에 ${token(percent)}을 곱합니다.<br>${token(base / 100)} × ${token(percent)} = ${token(amount)}</p>
     <p>4. ${word}이므로 기준 값 ${token(base)}${isUp ? "에" : "에서"} ${tokenJosa(amount, "을/를")} ${isUp ? "더합니다" : "뺍니다"}.<br>${token(base)} ${symbol} ${token(amount)} = ${token(result)}</p>
-    <p>따라서 ${token(base)} 에 ${token(percent)}% 를 ${label}하면 ${token(result)}</p>
+    <p>따라서 ${token(base)} 에 ${token(percent)}% 를 ${labelToken}하면 ${token(result)}</p>
   `;
 }
 
