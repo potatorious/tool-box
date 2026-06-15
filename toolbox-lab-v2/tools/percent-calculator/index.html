@@ -12,7 +12,7 @@
       <p><a href="../../">도구 목록으로</a></p>
       <h1>퍼센트 계산기</h1>
 
-      <div class="controls" aria-label="전체 보기 설정">
+      <div class="controls percent-controls" aria-label="전체 보기 설정">
         <button type="button" id="reset-all">전체 초기화</button>
       </div>
 
@@ -31,11 +31,11 @@
             <button type="button" class="copy-result" data-copy-target="part-result" hidden>복사</button>
           </span>
         </p>
-        <div class="formula-row">
-          <code id="part-formula">100 ÷ 100 × 20 = 20</code>
-        </div>
         <details class="detail">
           <summary>자세히 보기</summary>
+          <div class="formula-row">
+            <code id="part-formula">100 ÷ 100 × 20 = 20</code>
+          </div>
           <div id="part-detail"></div>
         </details>
       </section>
@@ -55,11 +55,11 @@
             <button type="button" class="copy-result" data-copy-target="reverse-result" hidden>복사</button>
           </span>
         </p>
-        <div class="formula-row">
-          <code id="reverse-formula">일부 값 ÷ 비율 × 100 = 전체 값</code>
-        </div>
         <details class="detail">
           <summary>자세히 보기</summary>
+          <div class="formula-row">
+            <code id="reverse-formula">일부 값 ÷ 비율 × 100 = 전체 값</code>
+          </div>
           <div id="reverse-detail"></div>
         </details>
       </section>
@@ -79,11 +79,11 @@
             <button type="button" class="copy-result" data-copy-target="ratio-result" hidden>복사</button>
           </span>
         </p>
-        <div class="formula-row">
-          <code id="ratio-formula">20 ÷ 100 × 100 = 20</code>
-        </div>
         <details class="detail">
           <summary>자세히 보기</summary>
+          <div class="formula-row">
+            <code id="ratio-formula">20 ÷ 100 × 100 = 20</code>
+          </div>
           <div id="ratio-detail"></div>
         </details>
       </section>
@@ -103,17 +103,17 @@
             <button type="button" class="copy-result" data-copy-target="change-result" hidden>복사</button>
           </span>
         </p>
-        <div class="formula-row">
-          <code id="change-formula">(120 - 100) ÷ 100 × 100 = 20</code>
-        </div>
         <details class="detail">
           <summary>자세히 보기</summary>
+          <div class="formula-row">
+            <code id="change-formula">(120 - 100) ÷ 100 × 100 = 20</code>
+          </div>
           <div id="change-detail"></div>
         </details>
       </section>
 
       <section class="calc-block">
-        <p class="sentence">
+        <p class="sentence apply-sentence">
           <span class="sentence-term">
             <input id="apply-base" type="number" inputmode="decimal" placeholder="기준 값" aria-label="원래 값">
             <span>에</span>
@@ -131,11 +131,11 @@
             <button type="button" class="copy-result" data-copy-target="apply-result" hidden>복사</button>
           </span>
         </p>
-        <div class="formula-row">
-          <code id="apply-formula">100 + (100 ÷ 100 × 20) = 120</code>
-        </div>
         <details class="detail">
           <summary>자세히 보기</summary>
+          <div class="formula-row">
+            <code id="apply-formula">100 + (100 ÷ 100 × 20) = 120</code>
+          </div>
           <div id="apply-detail"></div>
         </details>
       </section>

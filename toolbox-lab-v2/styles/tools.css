@@ -282,12 +282,28 @@
   }
 
   .age-milestones .counter-row {
-    grid-template-columns: 1fr;
-    gap: var(--space-1);
+    grid-template-columns: minmax(8.5em, 8.5em) minmax(0, 1fr);
+    column-gap: var(--space-4);
+    row-gap: var(--space-1);
+    align-items: center;
   }
 
   .age-milestones .counter-row strong {
     font-size: 17px;
+  }
+
+  .age-milestones .counter-row > span:first-child {
+    grid-row: 1 / span 2;
+    grid-column: 1;
+    align-self: center;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .age-milestones .counter-row > strong,
+  .age-milestones .counter-row > span:last-child {
+    grid-column: 2;
+    white-space: nowrap;
   }
 }
 

@@ -11,6 +11,14 @@
   margin: var(--space-8) 0;
 }
 
+.percent-controls {
+  justify-content: center;
+}
+
+.percent-controls button {
+  min-width: 120px;
+}
+
 .tool-list {
   display: grid;
   gap: var(--space-5);
@@ -260,6 +268,12 @@ tr.is-selected td {
     flex: 1 1 auto;
   }
 
+  .percent-controls button {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 120px;
+  }
+
   .tool-link {
     padding: var(--space-5);
   }
@@ -270,7 +284,7 @@ tr.is-selected td {
 
   .sentence {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
     gap: var(--space-2);
     font-size: var(--font-size-lg);
@@ -300,9 +314,19 @@ tr.is-selected td {
 
   .sentence-result {
     display: flex;
+    grid-column: 1 / -1;
     justify-self: center;
     justify-content: center;
     width: auto;
+  }
+
+  .apply-sentence .sentence-action {
+    grid-column: 1;
+  }
+
+  .apply-sentence .sentence-result {
+    grid-column: 2;
+    align-self: stretch;
   }
 
   .sentence-result .result {
