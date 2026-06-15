@@ -48,13 +48,23 @@
   font-size: var(--font-size-xl);
 }
 
+.sentence-term {
+  display: inline-grid;
+  grid-template-columns: minmax(0, auto) auto;
+  align-items: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
 input {
   width: 110px;
+  max-width: 100%;
   padding: var(--space-3) var(--space-4);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text);
   font: inherit;
+  min-height: 42px;
 }
 
 button {
@@ -64,10 +74,12 @@ button {
   color: var(--color-text);
   font: inherit;
   cursor: pointer;
+  min-height: 42px;
 }
 
 select {
   min-height: 42px;
+  max-width: 100%;
   padding: var(--space-3) var(--space-4);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -81,7 +93,7 @@ input[type="range"] {
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: var(--space-5);
   margin: var(--space-8) 0;
 }
@@ -94,6 +106,8 @@ input[type="range"] {
 
 .table-wrap {
   overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
@@ -126,7 +140,7 @@ tr.is-selected td {
 
 .date-number-group {
   display: grid;
-  grid-template-columns: minmax(76px, 1fr) auto minmax(56px, 0.75fr) auto minmax(56px, 0.75fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto;
   gap: var(--space-2);
   align-items: center;
 }
@@ -174,10 +188,38 @@ tr.is-selected td {
 .result {
   padding: var(--space-1) var(--space-3);
   font-weight: 700;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.result-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 100%;
+}
+
+.copy-result {
+  width: auto;
+  min-width: 4.5em;
+  min-height: auto;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-sm);
+  text-align: center;
 }
 
 .formula-row {
   margin-top: var(--space-4);
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.formula-row code {
+  display: inline-block;
+  min-width: max-content;
+  white-space: nowrap;
 }
 
 .detail {
@@ -205,7 +247,118 @@ tr.is-selected td {
 }
 
 @media (max-width: 560px) {
+  .tool {
+    margin: var(--space-8) auto;
+    padding: 0 var(--space-5);
+  }
+
+  .controls {
+    gap: var(--space-2);
+  }
+
+  .controls button {
+    flex: 1 1 auto;
+  }
+
+  .tool-link {
+    padding: var(--space-5);
+  }
+
+  .calc-block {
+    padding: var(--space-7) 0;
+  }
+
+  .sentence {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: var(--space-2);
+    font-size: var(--font-size-lg);
+  }
+
+  .sentence input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .sentence .result {
+    padding-left: 0;
+  }
+
+  .sentence button {
+    width: 100%;
+  }
+
+  .sentence .copy-result {
+    width: auto;
+  }
+
+  .sentence-term {
+    grid-template-columns: minmax(0, 1fr) auto;
+    width: 100%;
+  }
+
+  .sentence-result {
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    width: auto;
+  }
+
+  .sentence-result .result {
+    flex: 0 1 auto;
+  }
+
+  .sentence-result .copy-result {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: max-content;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
   .date-number-group {
-    grid-template-columns: minmax(72px, 1fr) auto minmax(52px, 0.75fr) auto minmax(52px, 0.75fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto;
+    gap: var(--space-1);
+  }
+
+  .bmi-input-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bmi-input-grid label > span {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-1);
+    min-width: 0;
+    white-space: nowrap;
+  }
+
+  .bmi-input-grid input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .counter-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .counter-row-sub {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .tool {
+    padding: 0 var(--space-4);
+  }
+
+  .sentence input,
+  .sentence button {
+    flex-basis: 100%;
   }
 }

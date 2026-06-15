@@ -2,6 +2,8 @@ const $ = (id) => document.getElementById(id);
 
 const elements = {
   textInput: $("text-input"),
+  limitType: $("limit-type"),
+  limitValue: $("limit-value"),
   clearButton: $("clear-text"),
   copyButton: $("copy-text"),
   copyStatus: $("copy-status"),
@@ -41,6 +43,65 @@ function getTextStats(text) {
   };
 }
 
+function getLimitValue() {
+  const value = Number(elements.limitValue.value);
+  return Number.isInteger(value) && value > 0 ? value : null;
+}
+
+function getLimitWeight(char, limitType) {
+  const isSpace = /\s/.test(char);
+
+  if ((limitType === "withoutSpaces" || limitType === "bytesWithoutSpaces") && isSpace) {
+    return 0;
+  }
+
+  if (limitType === "bytesWithSpaces" || limitType === "bytesWithoutSpaces") {
+    return new TextEncoder().encode(char).length;
+  }
+
+  return char.length;
+}
+
+function getLimitedText(text, limitType, limitValue) {
+  if (limitType === "none" || !limitValue) {
+    return text;
+  }
+
+  let result = "";
+  let count = 0;
+
+  for (const char of text) {
+    const weight = getLimitWeight(char, limitType);
+
+    if (count + weight > limitValue) {
+      continue;
+    }
+
+    result += char;
+    count += weight;
+  }
+
+  return result;
+}
+
+function enforceLimit() {
+  const limitValue = getLimitValue();
+  const limitedText = getLimitedText(elements.textInput.value, elements.limitType.value, limitValue);
+
+  if (limitedText !== elements.textInput.value) {
+    elements.textInput.value = limitedText;
+  }
+}
+
+function syncLimitValueState() {
+  const isDisabled = elements.limitType.value === "none";
+  elements.limitValue.disabled = isDisabled;
+
+  if (isDisabled) {
+    elements.limitValue.value = "";
+  }
+}
+
 function render() {
   const stats = getTextStats(elements.textInput.value);
   const counters = elements.counters;
@@ -58,13 +119,13 @@ async function copyText() {
   const text = elements.textInput.value;
 
   if (text.length === 0) {
-    elements.copyStatus.textContent = "복사할 텍스트가 없습니다.";
+    elements.copyStatus.textContent = "";
     return;
   }
 
   try {
     await navigator.clipboard.writeText(text);
-    elements.copyStatus.textContent = "텍스트를 복사했습니다.";
+    elements.copyStatus.textContent = "";
   } catch {
     elements.copyStatus.textContent = "복사 권한이 없어 직접 선택해 복사해 주세요.";
   }
@@ -76,11 +137,21 @@ function clearText() {
   render();
 }
 
+function applyLimitAndRender() {
+  syncLimitValueState();
+  enforceLimit();
+  render();
+}
+
 function bindEvents() {
-  elements.textInput.addEventListener("input", render);
+  elements.textInput.addEventListener("input", applyLimitAndRender);
+  elements.limitType.addEventListener("change", applyLimitAndRender);
+  elements.limitValue.addEventListener("input", applyLimitAndRender);
+  elements.limitValue.addEventListener("change", applyLimitAndRender);
   elements.clearButton.addEventListener("click", clearText);
   elements.copyButton.addEventListener("click", copyText);
 }
 
 bindEvents();
+syncLimitValueState();
 render();

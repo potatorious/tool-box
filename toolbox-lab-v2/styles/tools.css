@@ -69,14 +69,56 @@
 
 .text-input {
   width: 100%;
+  max-width: 100%;
   min-height: 220px;
   padding: var(--space-5);
   font: inherit;
   resize: vertical;
 }
 
+.text-limit {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  align-items: center;
+  width: min(100%, 560px);
+  margin: var(--space-5) auto var(--space-4);
+}
+
+.text-limit label {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.text-limit span {
+  font-weight: 700;
+}
+
+.text-limit select,
+.text-limit input {
+  width: 100%;
+}
+
+.text-actions {
+  align-items: center;
+  justify-content: center;
+}
+
+.text-actions button {
+  flex: 0 0 auto;
+}
+
+.text-actions #copy-status {
+  flex-basis: 100%;
+  text-align: center;
+}
+
 .text-stats {
   width: min(100%, 560px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .text-stat-row {
@@ -141,6 +183,74 @@
 }
 
 @media (max-width: 560px) {
+  .bmi-result {
+    font-size: var(--font-size-lg);
+  }
+
+  .bmi-scale {
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+
+  .bmi-scale-bar,
+  .bmi-scale-labels {
+    min-width: 0;
+  }
+
+  .bmi-scale-labels {
+    font-size: var(--font-size-sm);
+  }
+
+  .bmi-scale-labels strong {
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .bmi-scale-labels small {
+    font-size: 10px;
+  }
+
+  .text-input {
+    min-height: 180px;
+    padding: var(--space-4);
+  }
+
+  .text-limit {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  .text-limit label {
+    grid-template-columns: 1fr;
+  }
+
+  .text-stats {
+    width: 100%;
+  }
+
+  .text-stat-row {
+    grid-template-columns: 1fr auto auto;
+    gap: var(--space-4);
+  }
+
+  .text-stat-row-small {
+    grid-template-columns: 1fr auto;
+  }
+
+  .age-summary {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .age-summary article,
+  .age-detail p {
+    padding: var(--space-5);
+  }
+
+  .age-summary strong {
+    font-size: var(--font-size-xl);
+  }
+
   .age-milestones .counter-row {
     grid-template-columns: 1fr;
     gap: var(--space-1);

@@ -18,11 +18,18 @@
 
       <section class="calc-block">
         <p class="sentence">
-          <input id="part-total" type="number" inputmode="decimal" placeholder="전체 값" aria-label="기준이 되는 값">
-          의
-          <input id="part-percent" type="number" inputmode="decimal" placeholder="비율" aria-label="구하려는 퍼센트">
-          % 는
-          <strong class="result" id="part-result">-</strong>
+          <span class="sentence-term">
+            <input id="part-total" type="number" inputmode="decimal" placeholder="전체 값" aria-label="기준이 되는 값">
+            <span>의</span>
+          </span>
+          <span class="sentence-term">
+            <input id="part-percent" type="number" inputmode="decimal" placeholder="비율" aria-label="구하려는 퍼센트">
+            <span>% 는</span>
+          </span>
+          <span class="result-group sentence-result">
+            <strong class="result" id="part-result">-</strong>
+            <button type="button" class="copy-result" data-copy-target="part-result" hidden>복사</button>
+          </span>
         </p>
         <div class="formula-row">
           <code id="part-formula">100 ÷ 100 × 20 = 20</code>
@@ -35,11 +42,18 @@
 
       <section class="calc-block">
         <p class="sentence">
-          <input id="reverse-part" type="number" inputmode="decimal" placeholder="일부 값" aria-label="일부 값">
-          <span id="reverse-part-subject">이</span>
-          <input id="reverse-percent" type="number" inputmode="decimal" placeholder="비율" aria-label="전체에서 차지하는 비율">
-          % 라면
-          <strong class="result" id="reverse-result">-</strong>
+          <span class="sentence-term">
+            <input id="reverse-part" type="number" inputmode="decimal" placeholder="일부 값" aria-label="일부 값">
+            <span id="reverse-part-subject">이</span>
+          </span>
+          <span class="sentence-term">
+            <input id="reverse-percent" type="number" inputmode="decimal" placeholder="비율" aria-label="전체에서 차지하는 비율">
+            <span>% 라면</span>
+          </span>
+          <span class="result-group sentence-result">
+            <strong class="result" id="reverse-result">-</strong>
+            <button type="button" class="copy-result" data-copy-target="reverse-result" hidden>복사</button>
+          </span>
         </p>
         <div class="formula-row">
           <code id="reverse-formula">일부 값 ÷ 비율 × 100 = 전체 값</code>
@@ -52,11 +66,18 @@
 
       <section class="calc-block">
         <p class="sentence">
-          <input id="ratio-total" type="number" inputmode="decimal" placeholder="전체 값" aria-label="전체 기준값">
-          중
-          <input id="ratio-part" type="number" inputmode="decimal" placeholder="일부 값" aria-label="일부값">
-          <span id="ratio-part-topic">은</span>
-          <strong class="result" id="ratio-result">-</strong>
+          <span class="sentence-term">
+            <input id="ratio-total" type="number" inputmode="decimal" placeholder="전체 값" aria-label="전체 기준값">
+            <span>중</span>
+          </span>
+          <span class="sentence-term">
+            <input id="ratio-part" type="number" inputmode="decimal" placeholder="일부 값" aria-label="일부값">
+            <span id="ratio-part-topic">은</span>
+          </span>
+          <span class="result-group sentence-result">
+            <strong class="result" id="ratio-result">-</strong>
+            <button type="button" class="copy-result" data-copy-target="ratio-result" hidden>복사</button>
+          </span>
         </p>
         <div class="formula-row">
           <code id="ratio-formula">20 ÷ 100 × 100 = 20</code>
@@ -69,11 +90,18 @@
 
       <section class="calc-block">
         <p class="sentence">
-          <input id="change-before" type="number" inputmode="decimal" placeholder="기준 값" aria-label="처음 값">
-          <span id="change-before-subject">이</span>
-          <input id="change-after" type="number" inputmode="decimal" placeholder="변경 값" aria-label="바뀐 뒤의 값">
-          <span id="change-after-to">으로</span> 바뀌면
-          <strong class="result" id="change-result">-</strong>
+          <span class="sentence-term">
+            <input id="change-before" type="number" inputmode="decimal" placeholder="기준 값" aria-label="처음 값">
+            <span id="change-before-subject">이</span>
+          </span>
+          <span class="sentence-term">
+            <input id="change-after" type="number" inputmode="decimal" placeholder="변경 값" aria-label="바뀐 뒤의 값">
+            <span><span id="change-after-to">으로</span> 바뀌면</span>
+          </span>
+          <span class="result-group sentence-result">
+            <strong class="result" id="change-result">-</strong>
+            <button type="button" class="copy-result" data-copy-target="change-result" hidden>복사</button>
+          </span>
         </p>
         <div class="formula-row">
           <code id="change-formula">(120 - 100) ÷ 100 × 100 = 20</code>
@@ -86,13 +114,22 @@
 
       <section class="calc-block">
         <p class="sentence">
-          <input id="apply-base" type="number" inputmode="decimal" placeholder="기준 값" aria-label="원래 값">
-          에
-          <input id="apply-percent" type="number" inputmode="decimal" placeholder="비율" aria-label="적용할 퍼센트">
-          % 를
-          <button type="button" class="toggle-change percent-up" id="apply-mode" aria-label="증가 감소 전환">▲ 증가</button>
-          하면
-          <strong class="result" id="apply-result">-</strong>
+          <span class="sentence-term">
+            <input id="apply-base" type="number" inputmode="decimal" placeholder="기준 값" aria-label="원래 값">
+            <span>에</span>
+          </span>
+          <span class="sentence-term">
+            <input id="apply-percent" type="number" inputmode="decimal" placeholder="비율" aria-label="적용할 퍼센트">
+            <span>% 를</span>
+          </span>
+          <span class="sentence-term sentence-action">
+            <button type="button" class="toggle-change percent-up" id="apply-mode" aria-label="증가 감소 전환">▲ 증가</button>
+            <span>하면</span>
+          </span>
+          <span class="result-group sentence-result">
+            <strong class="result" id="apply-result">-</strong>
+            <button type="button" class="copy-result" data-copy-target="apply-result" hidden>복사</button>
+          </span>
         </p>
         <div class="formula-row">
           <code id="apply-formula">100 + (100 ÷ 100 × 20) = 120</code>
