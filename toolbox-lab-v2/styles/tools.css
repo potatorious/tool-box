@@ -160,6 +160,10 @@
   color: var(--color-muted);
 }
 
+.age-label-short {
+  display: none;
+}
+
 .age-summary strong {
   font-size: var(--font-size-2xl);
 }
@@ -247,13 +251,30 @@
   }
 
   .age-summary {
-    grid-template-columns: 1fr;
-    gap: var(--space-3);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
   }
 
-  .age-summary article,
   .age-detail p {
     padding: var(--space-5);
+  }
+
+  .age-summary article {
+    padding: var(--space-4);
+    min-width: 0;
+  }
+
+  .age-summary span {
+    font-size: var(--font-size-sm);
+    word-break: keep-all;
+  }
+
+  .age-label-full {
+    display: none;
+  }
+
+  .age-label-short {
+    display: inline;
   }
 
   .age-summary strong {
