@@ -4,6 +4,7 @@ const elements = {
   textInput: $("text-input"),
   limitType: $("limit-type"),
   limitValue: $("limit-value"),
+  applyLimitButton: $("apply-limit"),
   clearButton: $("clear-text"),
   copyButton: $("copy-text"),
   copyStatus: $("copy-status"),
@@ -15,6 +16,11 @@ const elements = {
     lines: $("line-count"),
     paragraphs: $("paragraph-count"),
   },
+};
+
+const state = {
+  activeLimitType: "none",
+  activeLimitValue: null,
 };
 
 function formatNumber(value) {
@@ -85,8 +91,11 @@ function getLimitedText(text, limitType, limitValue) {
 }
 
 function enforceLimit() {
-  const limitValue = getLimitValue();
-  const limitedText = getLimitedText(elements.textInput.value, elements.limitType.value, limitValue);
+  const limitedText = getLimitedText(
+    elements.textInput.value,
+    state.activeLimitType,
+    state.activeLimitValue
+  );
 
   if (limitedText !== elements.textInput.value) {
     elements.textInput.value = limitedText;
@@ -100,6 +109,14 @@ function syncLimitValueState() {
   if (isDisabled) {
     elements.limitValue.value = "";
   }
+}
+
+function applyLimitSettings() {
+  syncLimitValueState();
+  state.activeLimitType = elements.limitType.value;
+  state.activeLimitValue = state.activeLimitType === "none" ? null : getLimitValue();
+  enforceLimit();
+  render();
 }
 
 function render() {
@@ -138,16 +155,14 @@ function clearText() {
 }
 
 function applyLimitAndRender() {
-  syncLimitValueState();
   enforceLimit();
   render();
 }
 
 function bindEvents() {
   elements.textInput.addEventListener("input", applyLimitAndRender);
-  elements.limitType.addEventListener("change", applyLimitAndRender);
-  elements.limitValue.addEventListener("input", applyLimitAndRender);
-  elements.limitValue.addEventListener("change", applyLimitAndRender);
+  elements.limitType.addEventListener("change", syncLimitValueState);
+  elements.applyLimitButton.addEventListener("click", applyLimitSettings);
   elements.clearButton.addEventListener("click", clearText);
   elements.copyButton.addEventListener("click", copyText);
 }

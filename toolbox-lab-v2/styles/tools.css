@@ -5,6 +5,10 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+.shoe-size-inputs {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .bmi-result {
   margin: var(--space-8) 0;
   font-size: var(--font-size-xl);
@@ -78,7 +82,7 @@
 
 .text-limit {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
   gap: var(--space-3);
   align-items: center;
   width: min(100%, 560px);
@@ -99,6 +103,11 @@
 .text-limit select,
 .text-limit input {
   width: 100%;
+}
+
+.text-limit button {
+  align-self: end;
+  white-space: nowrap;
 }
 
 .text-actions {
@@ -216,7 +225,7 @@
   }
 
   .text-limit {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
     gap: var(--space-2);
   }
 
@@ -258,5 +267,11 @@
 
   .age-milestones .counter-row strong {
     font-size: 17px;
+  }
+}
+
+@media (max-width: 380px) {
+  .shoe-size-inputs {
+    gap: var(--space-3);
   }
 }
