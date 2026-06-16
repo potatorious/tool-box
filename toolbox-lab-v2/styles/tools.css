@@ -199,6 +199,11 @@
   grid-template-columns: minmax(80px, 0.7fr) minmax(120px, auto) minmax(150px, 1.3fr);
 }
 
+.age-milestones .counter-row > span:first-child {
+  text-align: center;
+  white-space: nowrap;
+}
+
 @media (max-width: 560px) {
   .bmi-result {
     font-size: var(--font-size-lg);
@@ -301,8 +306,6 @@
     grid-row: 1 / span 2;
     grid-column: 1;
     align-self: center;
-    text-align: center;
-    white-space: nowrap;
   }
 
   .age-milestones .counter-row > strong,
