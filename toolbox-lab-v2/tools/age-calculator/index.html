@@ -5,11 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>나이 계산기</title>
     <link rel="stylesheet" href="../../styles.css">
+    <script defer src="../../site.js"></script>
     <script defer src="app.js"></script>
   </head>
   <body>
-    <main class="tool">
-      <p><a href="../../">도구 목록으로</a></p>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a class="site-brand" href="../../">🥔⚡Potatospark</a>
+        <span class="site-clock" data-site-clock aria-label="현재 날짜와 시간"></span>
+      </div>
+    </header>
+
+    <main class="site-main tool">
       <h1>나이 계산기</h1>
 
       <section class="form-grid" aria-label="나이 계산 입력">
@@ -97,5 +104,20 @@
         <div class="age-milestones age-info-list" id="school-years"></div>
       </details>
     </main>
+
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <nav aria-label="사이트 정보">
+          <a href="../../about/">소개</a>
+          <span aria-hidden="true">|</span>
+          <a href="../../privacy/">개인정보처리방침</a>
+          <span aria-hidden="true">|</span>
+          <a href="../../terms/">이용약관</a>
+          <span aria-hidden="true">|</span>
+          <a href="../../contact/">문의</a>
+        </nav>
+        <span>© 2026 PotatoSpark. All rights reserved.</span>
+      </div>
+    </footer>
   </body>
 </html>
