@@ -23,9 +23,31 @@
   --space-9: 24px;
   --space-10: 32px;
 
-  --font-size-sm: 12px;
-  --font-size-md: 14px;
-  --font-size-lg: 18px;
-  --font-size-xl: 20px;
-  --font-size-2xl: 26px;
+  --font-size-desktop-sm: 12px;
+  --font-size-desktop-md: 14px;
+  --font-size-desktop-lg: 18px;
+  --font-size-desktop-xl: 20px;
+  --font-size-desktop-2xl: 26px;
+
+  --font-size-mobile-sm: 10px;
+  --font-size-mobile-md: 12px;
+  --font-size-mobile-lg: 14px;
+  --font-size-mobile-xl: 18px;
+  --font-size-mobile-2xl: 20px;
+
+  --font-size-sm: var(--font-size-desktop-sm);
+  --font-size-md: var(--font-size-desktop-md);
+  --font-size-lg: var(--font-size-desktop-lg);
+  --font-size-xl: var(--font-size-desktop-xl);
+  --font-size-2xl: var(--font-size-desktop-2xl);
+}
+
+@media (max-width: 560px) {
+  :root {
+    --font-size-sm: var(--font-size-mobile-sm);
+    --font-size-md: var(--font-size-mobile-md);
+    --font-size-lg: var(--font-size-mobile-lg);
+    --font-size-xl: var(--font-size-mobile-xl);
+    --font-size-2xl: var(--font-size-mobile-2xl);
+  }
 }

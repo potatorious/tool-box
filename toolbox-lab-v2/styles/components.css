@@ -184,6 +184,13 @@ select {
   font: inherit;
 }
 
+input:disabled,
+select:disabled {
+  background: var(--color-surface-muted);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+
 input[type="range"] {
   width: 100%;
 }
@@ -348,8 +355,20 @@ tr.is-selected td {
     align-items: flex-start;
   }
 
+  .site-footer-inner {
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--font-size-mobile-md);
+    line-height: 1.45;
+  }
+
+  .site-footer nav {
+    gap: var(--space-1) var(--space-3);
+  }
+
   .site-clock {
     padding-top: 2px;
+    font-size: var(--font-size-mobile-md);
   }
 
   .tool {
@@ -384,7 +403,7 @@ tr.is-selected td {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
     gap: var(--space-2);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-mobile-xl);
   }
 
   .sentence input {

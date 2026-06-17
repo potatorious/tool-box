@@ -1,16 +1,3 @@
-const INITIAL_VALUES = {
-  partTotal: "",
-  partPercent: "",
-  reversePart: "",
-  reversePercent: "",
-  ratioTotal: "",
-  ratioPart: "",
-  changeBefore: "",
-  changeAfter: "",
-  applyBase: "",
-  applyPercent: "",
-};
-
 const state = {
   applyMode: "up",
 };
@@ -60,6 +47,19 @@ const elements = {
   },
   resetAll: $("reset-all"),
 };
+
+const calculatorInputs = [
+  elements.part.total,
+  elements.part.percent,
+  elements.reverse.part,
+  elements.reverse.percent,
+  elements.ratio.total,
+  elements.ratio.part,
+  elements.change.before,
+  elements.change.after,
+  elements.apply.base,
+  elements.apply.percent,
+];
 
 function inputValue(input) {
   return Number(input.value) || 0;
@@ -552,22 +552,15 @@ function renderAll() {
 }
 
 function resetAll() {
-  elements.part.total.value = INITIAL_VALUES.partTotal;
-  elements.part.percent.value = INITIAL_VALUES.partPercent;
-  elements.reverse.part.value = INITIAL_VALUES.reversePart;
-  elements.reverse.percent.value = INITIAL_VALUES.reversePercent;
-  elements.ratio.total.value = INITIAL_VALUES.ratioTotal;
-  elements.ratio.part.value = INITIAL_VALUES.ratioPart;
-  elements.change.before.value = INITIAL_VALUES.changeBefore;
-  elements.change.after.value = INITIAL_VALUES.changeAfter;
-  elements.apply.base.value = INITIAL_VALUES.applyBase;
-  elements.apply.percent.value = INITIAL_VALUES.applyPercent;
+  calculatorInputs.forEach((input) => {
+    input.value = "";
+  });
   state.applyMode = "up";
   renderAll();
 }
 
 function bindEvents() {
-  document.querySelectorAll("input").forEach((input) => {
+  calculatorInputs.forEach((input) => {
     input.addEventListener("input", renderAll);
   });
 
