@@ -24,13 +24,14 @@
 
 .site-brand {
   color: inherit;
+  font-size: var(--font-size-md);
   font-weight: 700;
   text-decoration: none;
 }
 
 .site-clock {
   color: var(--color-muted);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-md);
   text-align: right;
   white-space: nowrap;
 }
@@ -55,6 +56,7 @@
   display: grid;
   gap: var(--space-2);
   justify-items: center;
+  font-size: var(--font-size-md);
   text-align: center;
 }
 
@@ -65,6 +67,7 @@
   justify-content: center;
 }
 
+/* Shared typography: navigation/body controls use md; tool sentences and primary metric values use xl; row values use lg. */
 .tool {
   max-width: 860px;
   margin: var(--space-10) auto;
@@ -161,6 +164,7 @@ input {
   border: 1px solid var(--color-border);
   color: var(--color-text);
   font: inherit;
+  font-size: var(--font-size-md);
   min-height: 42px;
 }
 
@@ -170,6 +174,7 @@ button {
   border: 1px solid var(--color-border);
   color: var(--color-text);
   font: inherit;
+  font-size: var(--font-size-md);
   cursor: pointer;
   min-height: 42px;
 }
@@ -182,6 +187,7 @@ select {
   border: 1px solid var(--color-border);
   color: var(--color-text);
   font: inherit;
+  font-size: var(--font-size-md);
 }
 
 input:disabled,
@@ -240,6 +246,28 @@ tr.is-selected td {
 
 .note-text {
   color: var(--color-muted);
+  font-size: var(--font-size-md);
+}
+
+.bmi-result,
+.age-summary strong {
+  font-size: var(--font-size-xl);
+}
+
+.bmi-scale-labels,
+.age-summary span {
+  font-size: var(--font-size-md);
+}
+
+.bmi-scale-labels small,
+.copy-result {
+  font-size: var(--font-size-sm);
+}
+
+.bmi-scale-labels strong,
+.counter-row strong,
+.age-milestones .counter-row strong {
+  font-size: var(--font-size-lg);
 }
 
 .date-number-group {
@@ -275,10 +303,6 @@ tr.is-selected td {
   width: min(100%, 320px);
 }
 
-.counter-row strong {
-  font-size: var(--font-size-lg);
-}
-
 .counter-row > span,
 #copy-status {
   color: var(--color-muted);
@@ -309,7 +333,6 @@ tr.is-selected td {
   min-width: 4.5em;
   min-height: auto;
   padding: var(--space-1) var(--space-3);
-  font-size: var(--font-size-sm);
   text-align: center;
 }
 
@@ -322,12 +345,18 @@ tr.is-selected td {
 
 .formula-row code {
   display: inline-block;
+  font-size: var(--font-size-md);
   min-width: max-content;
   white-space: nowrap;
 }
 
 .detail {
+  font-size: var(--font-size-md);
   margin-top: var(--space-3);
+}
+
+.detail summary {
+  font-size: var(--font-size-md);
 }
 
 .detail div {
@@ -358,7 +387,6 @@ tr.is-selected td {
   .site-footer-inner {
     gap: var(--space-1);
     padding: var(--space-4) var(--space-5);
-    font-size: var(--font-size-mobile-md);
     line-height: 1.45;
   }
 
@@ -368,7 +396,6 @@ tr.is-selected td {
 
   .site-clock {
     padding-top: 2px;
-    font-size: var(--font-size-mobile-md);
   }
 
   .tool {
@@ -403,7 +430,6 @@ tr.is-selected td {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
     gap: var(--space-2);
-    font-size: var(--font-size-mobile-xl);
   }
 
   .sentence input {

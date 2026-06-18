@@ -11,7 +11,6 @@
 
 .bmi-result {
   margin: var(--space-8) 0;
-  font-size: var(--font-size-xl);
 }
 
 .bmi-scale {
@@ -52,7 +51,6 @@
   gap: 0;
   margin-top: var(--space-3);
   color: var(--color-muted);
-  font-size: var(--font-size-md);
   text-align: center;
 }
 
@@ -60,10 +58,6 @@
   display: grid;
   gap: 2px;
   justify-items: center;
-}
-
-.bmi-scale-labels small {
-  font-size: var(--font-size-sm);
 }
 
 .bmi-scale-labels span.is-active {
@@ -168,10 +162,6 @@
   display: none;
 }
 
-.age-summary strong {
-  font-size: var(--font-size-2xl);
-}
-
 .age-detail {
   display: grid;
   gap: var(--space-3);
@@ -205,10 +195,6 @@
 }
 
 @media (max-width: 560px) {
-  .bmi-result {
-    font-size: var(--font-size-mobile-xl);
-  }
-
   .bmi-scale {
     overflow-x: visible;
     padding-bottom: 0;
@@ -219,17 +205,8 @@
     min-width: 0;
   }
 
-  .bmi-scale-labels {
-    font-size: var(--font-size-mobile-lg);
-  }
-
   .bmi-scale-labels strong {
-    font-size: var(--font-size-mobile-md);
     white-space: nowrap;
-  }
-
-  .bmi-scale-labels small {
-    font-size: var(--font-size-mobile-sm);
   }
 
   .text-input {
@@ -275,7 +252,6 @@
   }
 
   .age-summary span {
-    font-size: var(--font-size-mobile-lg);
     word-break: keep-all;
   }
 
@@ -287,19 +263,11 @@
     display: inline;
   }
 
-  .age-summary strong {
-    font-size: var(--font-size-mobile-2xl);
-  }
-
   .age-milestones .counter-row {
     grid-template-columns: minmax(8.5em, 8.5em) minmax(0, 1fr);
     column-gap: var(--space-4);
     row-gap: var(--space-1);
     align-items: center;
-  }
-
-  .age-milestones .counter-row strong {
-    font-size: var(--font-size-mobile-xl);
   }
 
   .age-milestones .counter-row > span:first-child {
