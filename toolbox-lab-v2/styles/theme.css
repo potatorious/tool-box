@@ -24,23 +24,23 @@
   --space-10: 32px;
 
   /* Type scale: sm=auxiliary, md=body/control, lg=card emphasis, xl=section/tool emphasis, 2xl=page title. */
-  --font-size-desktop-sm: 12px;
-  --font-size-desktop-md: 14px;
-  --font-size-desktop-lg: 18px;
-  --font-size-desktop-xl: 20px;
-  --font-size-desktop-2xl: 26px;
+  --font-size-desktop-sm: 14px;
+  --font-size-desktop-md: 16px;
+  --font-size-desktop-lg: 20px;
+  --font-size-desktop-xl: 24px;
+  --font-size-desktop-2xl: 32px;
 
-  --font-size-mobile-sm: 10px;
-  --font-size-mobile-md: 11px;
-  --font-size-mobile-lg: 12px;
-  --font-size-mobile-xl: 14px;
-  --font-size-mobile-2xl: 18px;
+  --font-size-mobile-sm: 11px;
+  --font-size-mobile-md: 13px;
+  --font-size-mobile-lg: 16px;
+  --font-size-mobile-xl: 18px;
+  --font-size-mobile-2xl: 22px;
 
-  --font-size-tablet-sm: 11px;
-  --font-size-tablet-md: 13px;
-  --font-size-tablet-lg: 15px;
-  --font-size-tablet-xl: 18px;
-  --font-size-tablet-2xl: 22px;
+  --font-size-tablet-sm: 12px;
+  --font-size-tablet-md: 14px;
+  --font-size-tablet-lg: 18px;
+  --font-size-tablet-xl: 20px;
+  --font-size-tablet-2xl: 26px;
 
   --font-size-sm: var(--font-size-desktop-sm);
   --font-size-md: var(--font-size-desktop-md);
