@@ -375,7 +375,7 @@ function renderReverseTotal() {
     <p>1. 일부 값 ${tokenJosa(part, "을/를")} 비율 ${tokenJosa(percent, "으로/로")} 나눕니다.<br>${token(part)} ÷ ${token(percent)} = ${resultToken(onePercent)}</p>
     <p>2. 이것은 1%가 ${resultToken(onePercent)}이라는 뜻입니다.</p>
     <p>3. 전체 값은 100%이므로 ${resultToken(onePercent)}에 100을 곱합니다.<br>${resultToken(onePercent)} × 100 = ${resultToken(result)}</p>
-    <p>따라서 ${tokenJosa(part, "이/가")} ${token(percent)}% 라면 전체는 ${resultToken(result)}</p>
+    <p>따라서 ${token(part)} ${josa(part, "이/가")} ${token(percent)}% 라면 전체는 ${resultToken(result)}</p>
   `;
 }
 
@@ -414,7 +414,7 @@ function renderRatio() {
     <p>1. 일부 값 ${tokenJosa(part, "을/를")} 전체 값 ${tokenJosa(total, "으로/로")} 나눕니다.<br>${token(part)} ÷ ${token(total)} = ${resultToken(ratio)}</p>
     <p>2. 이것은 일부 값이 전체 값의 ${resultToken(ratio)}배라는 뜻입니다.</p>
     <p>3. 퍼센트로 바꾸기 위해 ${resultToken(ratio)}에 100을 곱합니다.<br>${resultToken(ratio)} × 100 = ${formulaPercent(result)}%</p>
-    <p>따라서 ${token(total)} 중 ${tokenJosa(part, "은/는")} ${formulaPercent(result)}%</p>
+    <p>따라서 ${token(total)} 중 ${token(part)} ${josa(part, "은/는")} ${formulaPercent(result)}%</p>
   `;
 }
 
@@ -450,7 +450,7 @@ function renderChangeRate() {
         <p>입력한 기준 값은 ${token(before)}입니다.<br>입력한 변경 값은 ${token(after)}입니다.</p>
         <p>1. 변경 값 ${token(after)}에서 기준 값 ${tokenJosa(before, "을/를")} 뺍니다.<br>${token(after)} - ${token(before)} = 0</p>
         <p>2. 차이가 0이므로 값이 변하지 않았습니다.</p>
-        <p>따라서 ${tokenJosa(before, "이/가")} ${tokenJosa(after, "으로/로")} 바뀌면 0% 변화 없음</p>
+        <p>따라서 ${token(before)} ${josa(before, "이/가")} ${token(after)} ${josa(after, "으로/로")} 바뀌면 0% 변화 없음</p>
       `;
       return;
     }
@@ -478,7 +478,7 @@ function renderChangeRate() {
       <p>입력한 기준 값은 ${token(before)}입니다.<br>입력한 변경 값은 ${token(after)}입니다.</p>
       <p>1. 변경 값 ${token(after)}에서 기준 값 ${tokenJosa(before, "을/를")} 뺍니다.<br>${token(after)} - ${token(before)} = 0</p>
       <p>2. 차이가 0이므로 값이 변하지 않았습니다.</p>
-      <p>따라서 ${tokenJosa(before, "이/가")} ${tokenJosa(after, "으로/로")} 바뀌면 0% 변화 없음</p>
+      <p>따라서 ${token(before)} ${josa(before, "이/가")} ${token(after)} ${josa(after, "으로/로")} 바뀌면 0% 변화 없음</p>
     `;
     return;
   }
@@ -494,7 +494,7 @@ function renderChangeRate() {
     <p>2. 이것은 기준 값보다 ${resultToken(absDifference)}만큼 ${finalTextToken}했다는 뜻입니다.</p>
     <p>3. ${verb} 값 ${resultTokenJosa(absDifference, "을/를")} 기준 값 ${tokenJosa(before, "으로/로")} 나눕니다.<br>${resultToken(absDifference)} ÷ ${token(before)} = ${resultToken(changeRatio)}</p>
     <p>4. 퍼센트로 바꾸기 위해 ${resultToken(changeRatio)}에 100을 곱합니다.<br>${resultToken(changeRatio)} × 100 = ${formulaPercent(absRate)}%</p>
-    <p>따라서 ${tokenJosa(before, "이/가")} ${tokenJosa(after, "으로/로")} 바뀌면 ${finalLabel}</p>
+    <p>따라서 ${token(before)} ${josa(before, "이/가")} ${token(after)} ${josa(after, "으로/로")} 바뀌면 ${finalLabel}</p>
   `;
 }
 
@@ -534,7 +534,7 @@ function renderApplyPercent() {
     <p>2. 이것은 1%가 ${resultToken(base / 100)}이라는 뜻입니다.</p>
     <p>3. 비율 ${token(percent)}%를 구하기 위해 ${resultToken(base / 100)}에 ${token(percent)}을 곱합니다.<br>${resultToken(base / 100)} × ${token(percent)} = ${resultToken(amount)}</p>
     <p>4. ${word}이므로 기준 값 ${token(base)}${isUp ? "에" : "에서"} ${resultTokenJosa(amount, "을/를")} ${isUp ? "더합니다" : "뺍니다"}.<br>${token(base)} ${symbol} ${resultToken(amount)} = ${resultToken(result)}</p>
-    <p>따라서 ${token(base)} 에 ${token(percent)}% 를 ${labelToken}하면 ${resultToken(result)}</p>
+    <p>따라서 ${token(base)} 에 ${token(percent)}% 를 ${labelToken} 하면 ${resultToken(result)}</p>
   `;
 }
 

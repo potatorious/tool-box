@@ -9,8 +9,17 @@
   --color-surface: #fdfefe;
   --color-surface-muted: #f1f3f5;
   --color-accent-soft: #eef4ff;
-  --color-danger: #c5162e;
-  --color-info: #1257c8;
+  --color-change-up: #c5162e;
+  --color-change-down: #1257c8;
+  --color-change-flat: var(--color-muted-strong);
+  --color-bmi-underweight: #dceafe;
+  --color-bmi-normal: #dcfce7;
+  --color-bmi-overweight: #fef9c3;
+  --color-bmi-obese: #ffedd5;
+  --color-bmi-severe: #fee2e2;
+
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
 
   --space-1: 4px;
   --space-2: 6px;
